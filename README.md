@@ -6,7 +6,7 @@ Author: [Michael Gaisser](mailto:mjgaisser@gmail.com)
 ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/MikeG621/LfdResourceEditor/total)
 ![GitHub License](https://img.shields.io/github/license/MikeG621/LfdResourceEditor)  
 
-Lfd Resource Editor (LRE) will eventually be the all-in-one mission editor for the 
+Lfd Resource Editor (LRE) will eventually be the all-in-one editor for the 
 Lucasarts .LFD resource file format, most notably used by the X-Wing series.
 
 This is just getting started, and will likely be canibalizing some of my other editing
