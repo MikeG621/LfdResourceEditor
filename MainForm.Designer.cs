@@ -168,7 +168,6 @@
 			// 
 			this.opnLfd.DefaultExt = "lfd";
 			this.opnLfd.Filter = "LFD Files|*.lfd|All files|*.*";
-			this.opnLfd.ShowReadOnly = true;
 			this.opnLfd.FileOk += new System.ComponentModel.CancelEventHandler(this.opnLfd_FileOk);
 			// 
 			// lstResources
@@ -179,6 +178,7 @@
 			this.lstResources.ScrollAlwaysVisible = true;
 			this.lstResources.Size = new System.Drawing.Size(114, 407);
 			this.lstResources.TabIndex = 6;
+			this.lstResources.SelectedIndexChanged += new System.EventHandler(this.lstResources_SelectedIndexChanged);
 			this.lstResources.DoubleClick += new System.EventHandler(this.lstResources_DoubleClick);
 			// 
 			// panel1

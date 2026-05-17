@@ -8,7 +8,7 @@
  */
 
 /* CHANGELOG
- * v0.1, YYMMDD
+ * v0.1, 260517
  * - created
  */
 
@@ -26,11 +26,12 @@ namespace LfdResourceEditor
 		string _string = "";
 		int _activeIndex = -1;
 
-		public TextForm(LfdFile lfd, Text text)
+		public TextForm(LfdFile lfd, Text text, bool readOnly = false)
 		{
 			InitializeComponent();
 			_lfd = lfd;
 			_text = text;
+			if (readOnly) txtString.Enabled = false;
 			Text = $"{_lfd.FileName} : {_text}";
 			foreach (string s in _text.Strings) lstStrings.Items.Add(s.Length > 12 ? s.Substring(0, 12) + "..." : s);
 		}

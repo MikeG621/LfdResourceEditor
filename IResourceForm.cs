@@ -8,7 +8,7 @@
  */
 
 /* CHANGELOG
- * v0.1, YYMMDD
+ * v0.1, 260517
  * - created
  */
 

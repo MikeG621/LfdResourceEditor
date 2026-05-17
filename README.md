@@ -30,8 +30,8 @@ Currently, there are no other settings/config files.
 
 ## Latest Release
 
-#### WIP
-- Just getting started, nothing here yet
+#### v0.1, 17 May 2026
+- Initial release, currently only supporting TEXT.
 
 ---
 ### Additional Information

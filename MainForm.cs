@@ -8,7 +8,7 @@
  */
 
 /* CHANGELOG
- * v0.1, YYMMDD
+ * v0.1, 260517
  * - created
  */
 
@@ -147,6 +147,15 @@ namespace LfdResourceEditor
 					break;
 			}
 		}
+		private void lstResources_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (lstResources.SelectedIndex == -1) return;
+
+			var res = _lfd.Resources[lstResources.SelectedIndex];
+
+			foreach (Form frm in MdiChildren)
+				if ((frm as IResourceForm).Resource == res) frm.Select();
+		}
 
 		private void miFileOpen_Click(object sender, EventArgs e) => opnLfd.ShowDialog();
 		private void miFileSave_Click(object sender, EventArgs e)
@@ -209,7 +218,10 @@ namespace LfdResourceEditor
 			reset();
 		}
 
-		private void opnLfd_FileOk(object sender, CancelEventArgs e) => loadLfd(opnLfd.FileName); // TODO: read-only functionality
+		private void opnLfd_FileOk(object sender, CancelEventArgs e)
+		{
+			loadLfd(opnLfd.FileName); // TODO: read-only functionality
+		}
 
 		bool _isDirty
 		{
