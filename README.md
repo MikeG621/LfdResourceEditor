@@ -30,8 +30,8 @@ Currently, there are no other settings/config files.
 
 ## Latest Release
 
-#### v0.1, 17 May 2026
-- Initial release, currently only supporting TEXT.
+#### WIP
+- PLTT support added.
 
 ---
 ### Additional Information
@@ -43,6 +43,8 @@ Currently, there are no other settings/config files.
 
 ### Version History
 
+#### v0.1, 17 May 2026
+- Initial release, currently only supporting TEXT.
 
 ---
 

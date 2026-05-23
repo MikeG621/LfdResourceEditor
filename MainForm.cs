@@ -139,11 +139,16 @@ namespace LfdResourceEditor
 					return;
 				}
 
+			Form resFrm;
 			switch (res.Type)
 			{
 				case Resource.ResourceType.Text:
-					var frm = new TextForm(_lfd, (Text)res) { MdiParent = this };
-					frm.Show();
+					resFrm = new TextForm(_lfd, (Text)res) { MdiParent = this };
+					resFrm.Show();
+					break;
+				case Resource.ResourceType.Pltt:
+					resFrm = new PlttForm(_lfd, (Pltt)res) { MdiParent = this };
+					resFrm.Show();
 					break;
 			}
 		}
