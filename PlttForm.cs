@@ -27,6 +27,7 @@ namespace LfdResourceEditor
 		readonly LfdFile _lfd;
 		readonly Pltt _pltt;
 		readonly Pltt _wrk = new Pltt();
+
 		readonly Panel[] pnlColors = new Panel[256];
 		int _rotFrame;
 
@@ -82,7 +83,7 @@ namespace LfdResourceEditor
 
 		public void ForceClose()
 		{
-			Text.TrimEnd('*');
+			Text = Text.TrimEnd('*');
 			Close();
 		}
 		#endregion
@@ -191,6 +192,7 @@ namespace LfdResourceEditor
 		private void cmdUpdate_Click(object sender, EventArgs e)
 		{
 			_wrk.EncodeResource();
+			Text = Text.TrimEnd('*');
 			_pltt.DecodeResource(_wrk.RawData, false);
 			_pltt.Dirty();
 			_parent.MarkDirty();

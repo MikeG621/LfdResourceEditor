@@ -32,6 +32,7 @@ Currently, there are no other settings/config files.
 
 #### WIP
 - PLTT support added.
+- TEXT Update button now for saving resource to LFD, text auto-dirties working copy.
 
 ---
 ### Additional Information
