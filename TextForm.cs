@@ -8,6 +8,7 @@
  */
 
 /* CHANGELOG
+ * [UPD] Refactored to ResourceForm
  * [UPD] Added working copy, Update now for pushing to LFD
  * v0.1, 260517
  * - created
@@ -15,52 +16,26 @@
 
 using Idmr.LfdReader;
 using System;
-using System.Windows.Forms;
 
-namespace LfdResourceEditor
+namespace Idmr.LfdResourceEditor
 {
-	public partial class TextForm : Form, IResourceForm
+	public partial class TextForm : ResourceForm
 	{
-		bool _isLoading;
-		readonly bool _isReadOnly;
-		readonly LfdFile _lfd;
-		readonly Text _text;
-		readonly Text _wrk = new Text();
-
 		string _string = "";
 		int _activeIndex = -1;
+		Text _wrk => (Text)_working;
+		Text _text => (Text)_resource;
 
-		public TextForm(LfdFile lfd, Text text, bool readOnly = false)
+		public TextForm(LfdFile lfd, Text text, bool readOnly = false) : base(lfd, text, readOnly)
 		{
 			InitializeComponent();
-			_lfd = lfd;
-			_text = text;
+			_working = new Text();
 			_wrk.DecodeResource(_text.RawData, false);
-			if (readOnly) txtString.Enabled = false;
-			Text = $"{_lfd.FileName} : {_text}";
-			if (readOnly) Text += " (Read only)";
+			txtString.ReadOnly = _isReadOnly;
 			foreach (string s in _wrk.Strings) lstStrings.Items.Add(s.Length > 12 ? s.Substring(0, 12) + "..." : s);
-			_isReadOnly = readOnly;
 		}
 
-		void markDirty()
-		{
-			if (_isDirty) return;
-
-			Text += "*";
-			_wrk.Dirty();
-		}
-
-		private void TextForm_FormClosing(object sender, FormClosingEventArgs e)
-		{
-			if (!_isDirty) return;
-
-			var response = MessageBox.Show($"Push updates to {_lfd.FileName}?", "Unsaved changes", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
-			if (response == DialogResult.Cancel) e.Cancel = true;
-			else if (response == DialogResult.Yes) cmdUpdate_Click("closing", new EventArgs());
-		}
-
-		private void cmdUpdate_Click(object sender, EventArgs e)
+		protected override void updateLfd()
 		{
 			if (lblNewLength.Visible)
 			{
@@ -68,10 +43,7 @@ namespace LfdResourceEditor
 				lblOriginalLength.Text = $"Original length: {_string.Length}";
 			}
 			_wrk.EncodeResource();
-			Text = Text.TrimEnd('*');
 			_text.DecodeResource(_wrk.RawData, false);
-			_text.Dirty();
-			_parent.MarkDirty();
 		}
 
 		private void lstStrings_SelectedIndexChanged(object sender, EventArgs e)
@@ -90,7 +62,7 @@ namespace LfdResourceEditor
 
 		private void txtString_TextChanged(object sender, EventArgs e)
 		{
-			if (_isLoading || _activeIndex == -1 || _isReadOnly) return;
+			if (_isLoading || _activeIndex == -1) return;
 
 			_string = txtString.Text.Replace("\r\n", "\0").Replace("\0\0", "\0\n\0");
 			lblNewLength.Text = $"New length: {_string.Length}";
@@ -98,20 +70,5 @@ namespace LfdResourceEditor
 			_wrk.Strings[_activeIndex] = _string;
 			markDirty();
 		}
-
-		#region IResourceForm members
-		public void ForceClose()
-		{
-			Text = Text.TrimEnd('*');
-			Close();
-		}
-
-		public LfdFile ParentLfd => _lfd;
-
-		public Resource Resource => _text;
-		#endregion
-
-		MainForm _parent => MdiParent as MainForm;
-		bool _isDirty => Text.EndsWith("*");
 	}
 }

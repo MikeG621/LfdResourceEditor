@@ -1,4 +1,4 @@
-﻿namespace LfdResourceEditor
+﻿namespace Idmr.LfdResourceEditor
 {
 	partial class PlttForm
 	{
@@ -29,16 +29,6 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PlttForm));
-			this.label1 = new System.Windows.Forms.Label();
-			this.label2 = new System.Windows.Forms.Label();
-			this.numStartIndex = new System.Windows.Forms.NumericUpDown();
-			this.numEndIndex = new System.Windows.Forms.NumericUpDown();
-			this.pnlClr0 = new System.Windows.Forms.Panel();
-			this.lblColor = new System.Windows.Forms.Label();
-			this.label4 = new System.Windows.Forms.Label();
-			this.numRotators = new System.Windows.Forms.NumericUpDown();
-			this.clrDlg = new System.Windows.Forms.ColorDialog();
 			this.grpRotators = new System.Windows.Forms.GroupBox();
 			this.cmdPlay = new System.Windows.Forms.Button();
 			this.lblFrames = new System.Windows.Forms.Label();
@@ -50,106 +40,29 @@
 			this.numRotatorEnd = new System.Windows.Forms.NumericUpDown();
 			this.numRotatorStart = new System.Windows.Forms.NumericUpDown();
 			this.numRotatorIndex = new System.Windows.Forms.NumericUpDown();
+			this.label4 = new System.Windows.Forms.Label();
+			this.pnlClr0 = new System.Windows.Forms.Panel();
+			this.numRotators = new System.Windows.Forms.NumericUpDown();
+			this.numEndIndex = new System.Windows.Forms.NumericUpDown();
+			this.numStartIndex = new System.Windows.Forms.NumericUpDown();
+			this.label2 = new System.Windows.Forms.Label();
+			this.label1 = new System.Windows.Forms.Label();
+			this.lblColor = new System.Windows.Forms.Label();
+			this.clrDlg = new System.Windows.Forms.ColorDialog();
 			this.tmrRotator = new System.Windows.Forms.Timer(this.components);
-			this.cmdUpdate = new System.Windows.Forms.Button();
-			((System.ComponentModel.ISupportInitialize)(this.numStartIndex)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numEndIndex)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numRotators)).BeginInit();
 			this.grpRotators.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numFrameDivider)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numRotatorEnd)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numRotatorStart)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numRotatorIndex)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numRotators)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numEndIndex)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numStartIndex)).BeginInit();
 			this.SuspendLayout();
 			// 
-			// label1
+			// cmdUpdate
 			// 
-			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(12, 14);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(61, 13);
-			this.label1.TabIndex = 0;
-			this.label1.Text = "Start Index:";
-			// 
-			// label2
-			// 
-			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(12, 40);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(58, 13);
-			this.label2.TabIndex = 1;
-			this.label2.Text = "End Index:";
-			// 
-			// numStartIndex
-			// 
-			this.numStartIndex.Location = new System.Drawing.Point(79, 12);
-			this.numStartIndex.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-			this.numStartIndex.Name = "numStartIndex";
-			this.numStartIndex.ReadOnly = true;
-			this.numStartIndex.Size = new System.Drawing.Size(41, 20);
-			this.numStartIndex.TabIndex = 6;
-			// 
-			// numEndIndex
-			// 
-			this.numEndIndex.Location = new System.Drawing.Point(79, 38);
-			this.numEndIndex.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-			this.numEndIndex.Name = "numEndIndex";
-			this.numEndIndex.ReadOnly = true;
-			this.numEndIndex.Size = new System.Drawing.Size(41, 20);
-			this.numEndIndex.TabIndex = 6;
-			// 
-			// pnlClr0
-			// 
-			this.pnlClr0.Location = new System.Drawing.Point(166, 14);
-			this.pnlClr0.Name = "pnlClr0";
-			this.pnlClr0.Size = new System.Drawing.Size(256, 256);
-			this.pnlClr0.TabIndex = 7;
-			this.pnlClr0.Click += new System.EventHandler(this.pnlColors_Click);
-			this.pnlClr0.MouseEnter += new System.EventHandler(this.pnlColors_MouseEnter);
-			// 
-			// lblColor
-			// 
-			this.lblColor.AutoSize = true;
-			this.lblColor.Location = new System.Drawing.Point(164, 283);
-			this.lblColor.Name = "lblColor";
-			this.lblColor.Size = new System.Drawing.Size(86, 13);
-			this.lblColor.TabIndex = 8;
-			this.lblColor.Text = "Index:, R:, G:, B:";
-			// 
-			// label4
-			// 
-			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(12, 66);
-			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(102, 13);
-			this.label4.TabIndex = 9;
-			this.label4.Text = "Number of Rotators:";
-			// 
-			// numRotators
-			// 
-			this.numRotators.Location = new System.Drawing.Point(120, 64);
-			this.numRotators.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-			this.numRotators.Name = "numRotators";
-			this.numRotators.ReadOnly = true;
-			this.numRotators.Size = new System.Drawing.Size(41, 20);
-			this.numRotators.TabIndex = 6;
-			this.numRotators.ValueChanged += new System.EventHandler(this.numRotators_ValueChanged);
-			// 
-			// clrDlg
-			// 
-			this.clrDlg.SolidColorOnly = true;
+			this.cmdUpdate.Location = new System.Drawing.Point(39, 258);
 			// 
 			// grpRotators
 			// 
@@ -167,7 +80,7 @@
 			this.grpRotators.Location = new System.Drawing.Point(12, 90);
 			this.grpRotators.Name = "grpRotators";
 			this.grpRotators.Size = new System.Drawing.Size(149, 162);
-			this.grpRotators.TabIndex = 10;
+			this.grpRotators.TabIndex = 18;
 			this.grpRotators.TabStop = false;
 			this.grpRotators.Text = "Rotators";
 			this.grpRotators.EnabledChanged += new System.EventHandler(this.grpRotators_EnabledChanged);
@@ -280,51 +193,133 @@
 			this.numRotatorIndex.TabIndex = 6;
 			this.numRotatorIndex.ValueChanged += new System.EventHandler(this.numRotatorIndex_ValueChanged);
 			// 
+			// label4
+			// 
+			this.label4.AutoSize = true;
+			this.label4.Location = new System.Drawing.Point(12, 66);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(102, 13);
+			this.label4.TabIndex = 17;
+			this.label4.Text = "Number of Rotators:";
+			// 
+			// pnlClr0
+			// 
+			this.pnlClr0.Location = new System.Drawing.Point(166, 14);
+			this.pnlClr0.Name = "pnlClr0";
+			this.pnlClr0.Size = new System.Drawing.Size(256, 256);
+			this.pnlClr0.TabIndex = 16;
+			this.pnlClr0.Click += new System.EventHandler(this.pnlColors_Click);
+			this.pnlClr0.MouseEnter += new System.EventHandler(this.pnlColors_MouseEnter);
+			// 
+			// numRotators
+			// 
+			this.numRotators.Location = new System.Drawing.Point(120, 64);
+			this.numRotators.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+			this.numRotators.Name = "numRotators";
+			this.numRotators.ReadOnly = true;
+			this.numRotators.Size = new System.Drawing.Size(41, 20);
+			this.numRotators.TabIndex = 13;
+			this.numRotators.ValueChanged += new System.EventHandler(this.numRotators_ValueChanged);
+			// 
+			// numEndIndex
+			// 
+			this.numEndIndex.Location = new System.Drawing.Point(79, 38);
+			this.numEndIndex.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+			this.numEndIndex.Name = "numEndIndex";
+			this.numEndIndex.ReadOnly = true;
+			this.numEndIndex.Size = new System.Drawing.Size(41, 20);
+			this.numEndIndex.TabIndex = 14;
+			// 
+			// numStartIndex
+			// 
+			this.numStartIndex.Location = new System.Drawing.Point(79, 12);
+			this.numStartIndex.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+			this.numStartIndex.Name = "numStartIndex";
+			this.numStartIndex.ReadOnly = true;
+			this.numStartIndex.Size = new System.Drawing.Size(41, 20);
+			this.numStartIndex.TabIndex = 15;
+			// 
+			// label2
+			// 
+			this.label2.AutoSize = true;
+			this.label2.Location = new System.Drawing.Point(12, 40);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(58, 13);
+			this.label2.TabIndex = 12;
+			this.label2.Text = "End Index:";
+			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.Location = new System.Drawing.Point(12, 14);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(61, 13);
+			this.label1.TabIndex = 11;
+			this.label1.Text = "Start Index:";
+			// 
+			// lblColor
+			// 
+			this.lblColor.AutoSize = true;
+			this.lblColor.Location = new System.Drawing.Point(163, 278);
+			this.lblColor.Name = "lblColor";
+			this.lblColor.Size = new System.Drawing.Size(86, 13);
+			this.lblColor.TabIndex = 19;
+			this.lblColor.Text = "Index:, R:, G:, B:";
+			// 
+			// clrDlg
+			// 
+			this.clrDlg.SolidColorOnly = true;
+			// 
 			// tmrRotator
 			// 
 			this.tmrRotator.Interval = 80;
 			this.tmrRotator.Tick += new System.EventHandler(this.tmrRotator_Tick);
 			// 
-			// cmdUpdate
-			// 
-			this.cmdUpdate.Location = new System.Drawing.Point(21, 272);
-			this.cmdUpdate.Name = "cmdUpdate";
-			this.cmdUpdate.Size = new System.Drawing.Size(75, 23);
-			this.cmdUpdate.TabIndex = 11;
-			this.cmdUpdate.Text = "&Update";
-			this.cmdUpdate.UseVisualStyleBackColor = true;
-			this.cmdUpdate.Click += new System.EventHandler(this.cmdUpdate_Click);
-			// 
-			// PlttForm
+			// NewPlttForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(436, 307);
-			this.Controls.Add(this.cmdUpdate);
+			this.ClientSize = new System.Drawing.Size(436, 299);
+			this.Controls.Add(this.lblColor);
 			this.Controls.Add(this.grpRotators);
 			this.Controls.Add(this.label4);
-			this.Controls.Add(this.lblColor);
 			this.Controls.Add(this.pnlClr0);
 			this.Controls.Add(this.numRotators);
 			this.Controls.Add(this.numEndIndex);
 			this.Controls.Add(this.numStartIndex);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.label1);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.MaximizeBox = false;
-			this.Name = "PlttForm";
-			this.Text = "PlttForm";
-			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PlttForm_FormClosing);
-			((System.ComponentModel.ISupportInitialize)(this.numStartIndex)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numEndIndex)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numRotators)).EndInit();
+			this.Name = "NewPlttForm";
+			this.Controls.SetChildIndex(this.cmdUpdate, 0);
+			this.Controls.SetChildIndex(this.label1, 0);
+			this.Controls.SetChildIndex(this.label2, 0);
+			this.Controls.SetChildIndex(this.numStartIndex, 0);
+			this.Controls.SetChildIndex(this.numEndIndex, 0);
+			this.Controls.SetChildIndex(this.numRotators, 0);
+			this.Controls.SetChildIndex(this.pnlClr0, 0);
+			this.Controls.SetChildIndex(this.label4, 0);
+			this.Controls.SetChildIndex(this.grpRotators, 0);
+			this.Controls.SetChildIndex(this.lblColor, 0);
 			this.grpRotators.ResumeLayout(false);
 			this.grpRotators.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numFrameDivider)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numRotatorEnd)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numRotatorStart)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numRotatorIndex)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numRotators)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numEndIndex)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numStartIndex)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -332,16 +327,9 @@
 
 		#endregion
 
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.NumericUpDown numStartIndex;
-		private System.Windows.Forms.NumericUpDown numEndIndex;
-		private System.Windows.Forms.Panel pnlClr0;
-		private System.Windows.Forms.Label lblColor;
-		private System.Windows.Forms.Label label4;
-		private System.Windows.Forms.NumericUpDown numRotators;
-		private System.Windows.Forms.ColorDialog clrDlg;
 		private System.Windows.Forms.GroupBox grpRotators;
+		private System.Windows.Forms.Button cmdPlay;
+		private System.Windows.Forms.Label lblFrames;
 		private System.Windows.Forms.Label label8;
 		private System.Windows.Forms.Label label7;
 		private System.Windows.Forms.Label label6;
@@ -350,9 +338,15 @@
 		private System.Windows.Forms.NumericUpDown numRotatorEnd;
 		private System.Windows.Forms.NumericUpDown numRotatorStart;
 		private System.Windows.Forms.NumericUpDown numRotatorIndex;
-		private System.Windows.Forms.Button cmdPlay;
-		private System.Windows.Forms.Label lblFrames;
+		private System.Windows.Forms.Label label4;
+		private System.Windows.Forms.Panel pnlClr0;
+		private System.Windows.Forms.NumericUpDown numRotators;
+		private System.Windows.Forms.NumericUpDown numEndIndex;
+		private System.Windows.Forms.NumericUpDown numStartIndex;
+		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Label lblColor;
+		private System.Windows.Forms.ColorDialog clrDlg;
 		private System.Windows.Forms.Timer tmrRotator;
-		private System.Windows.Forms.Button cmdUpdate;
 	}
 }

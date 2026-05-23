@@ -1,4 +1,4 @@
-﻿namespace LfdResourceEditor
+﻿namespace Idmr.LfdResourceEditor
 {
 	partial class MainForm
 	{

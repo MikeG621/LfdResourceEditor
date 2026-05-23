@@ -23,7 +23,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace LfdResourceEditor
+namespace Idmr.LfdResourceEditor
 {
 	internal static class Program
 	{

@@ -20,7 +20,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Windows.Forms;
 
-namespace LfdResourceEditor
+namespace Idmr.LfdResourceEditor
 {
 	public partial class MainForm : Form
 	{
@@ -41,8 +41,8 @@ namespace LfdResourceEditor
 			for (index = 0; index < _files.Count; index++) if (_files[index] == lfd) break;
 			if (index == _files.Count) return;
 
-			foreach(Form frm in MdiChildren)
-				if ((frm as IResourceForm).ParentLfd == _files[index]) (frm as IResourceForm).ForceClose();
+			foreach(ResourceForm frm in MdiChildren)
+				if (frm.ParentLfd == _files[index]) frm.ForceClose();
 			_files.RemoveAt(index);
 			cboOpenedLfds.Items.RemoveAt(index);
 			if (index < _files.Count) cboOpenedLfds.SelectedIndex = index;
@@ -71,9 +71,9 @@ namespace LfdResourceEditor
 			_lfd = lfd;
 			lstResources.Items.Clear();
 			foreach (Resource r in _lfd.Resources) lstResources.Items.Add(r.ToString());
-			if (ActiveMdiChild != null && (ActiveMdiChild as IResourceForm).ParentLfd != _lfd)
-				foreach (Form frm in MdiChildren)
-					if ((frm as IResourceForm).ParentLfd == _lfd)
+			if (ActiveMdiChild != null && (ActiveMdiChild as ResourceForm).ParentLfd != _lfd)
+				foreach (ResourceForm frm in MdiChildren)
+					if (frm.ParentLfd == _lfd)
 					{
 						frm.Select(); // just switch to the first one
 						break;
@@ -86,7 +86,7 @@ namespace LfdResourceEditor
 		{
 			_files.Clear();
 			cboOpenedLfds.Items.Clear();
-			foreach (Form frm in MdiChildren) (frm as IResourceForm).ForceClose();
+			foreach (ResourceForm frm in MdiChildren) frm.ForceClose();
 			_lfd = null;
 			miFileSave.Enabled = false;
 			lstResources.Items.Clear();
@@ -116,7 +116,7 @@ namespace LfdResourceEditor
 		{
 			if (ActiveMdiChild == null) return;
 
-			loadLfd((ActiveMdiChild as IResourceForm).ParentLfd);
+			loadLfd((ActiveMdiChild as ResourceForm).ParentLfd);
 		}
 
 		private void cboOpenedLfds_SelectedIndexChanged(object sender, EventArgs e)
@@ -126,14 +126,15 @@ namespace LfdResourceEditor
 			loadLfd(_files[cboOpenedLfds.SelectedIndex]);
 		}
 
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0220:Add explicit cast", Justification = "implicit is fine")]
 		private void lstResources_DoubleClick(object sender, EventArgs e)
 		{
 			if (lstResources.SelectedIndex == -1) return;
 
 			var res = _lfd.Resources[lstResources.SelectedIndex];
 
-			foreach (Form frm in MdiChildren)
-				if ((frm as IResourceForm).Resource == res)
+			foreach (ResourceForm frm in MdiChildren)
+				if (frm.Resource == res)
 				{
 					frm.Select();
 					return;
@@ -142,6 +143,11 @@ namespace LfdResourceEditor
 			Form resFrm;
 			switch (res.Type)
 			{
+				case Resource.ResourceType.Blas:
+				case Resource.ResourceType.Voic:
+					resFrm = new BlasForm(_lfd, (Blas)res) { MdiParent = this };
+					resFrm.Show();
+					break;
 				case Resource.ResourceType.Text:
 					resFrm = new TextForm(_lfd, (Text)res) { MdiParent = this };
 					resFrm.Show();
@@ -158,8 +164,8 @@ namespace LfdResourceEditor
 
 			var res = _lfd.Resources[lstResources.SelectedIndex];
 
-			foreach (Form frm in MdiChildren)
-				if ((frm as IResourceForm).Resource == res) frm.Select();
+			foreach (ResourceForm frm in MdiChildren)
+				if (frm.Resource == res) frm.Select();
 		}
 
 		private void miFileOpen_Click(object sender, EventArgs e) => opnLfd.ShowDialog();
@@ -170,8 +176,8 @@ namespace LfdResourceEditor
 			_isLoading = true;
 			_lfd.Write();
 			cboOpenedLfds.Items[cboOpenedLfds.SelectedIndex] = _lfd.FileName;
-			foreach (Form frm in MdiChildren)
-				if ((frm as IResourceForm).ParentLfd == _lfd) frm.Text = frm.Text.TrimEnd('*');
+			foreach (ResourceForm frm in MdiChildren)
+				if (frm.ParentLfd == _lfd) frm.Text = frm.Text.TrimEnd('*');
 			Text = Text.TrimEnd('*');
 			_isLoading = false;
 
@@ -237,5 +243,8 @@ namespace LfdResourceEditor
 				return dirty;
 			}
 		}
+
+		/// <summary>Gets an array of all currently opened LFDs.</summary>
+		public LfdFile[] OpenedLfds => _files.ToArray();
 	}
 }
