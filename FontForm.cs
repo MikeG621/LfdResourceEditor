@@ -1,0 +1,227 @@
+﻿/*
+ * LfdResourceEditor, All-in-one editor for the Lucasarts .LFD resource file format
+ * Copyright (C) 2026 Michael Gaisser (mjgaisser@gmail.com)
+ * Licensed under the MPL v2.0 or later.
+ * 
+ * Full notice in Program.cs
+ * Version: 0.1+
+ */
+
+/* CHANGELOG
+ * v0.2, xxxxxx
+ * - created
+ */
+
+using Idmr.LfdReader;
+using System;
+using System.Drawing;
+using System.IO;
+using System.Runtime.InteropServices.WindowsRuntime;
+using System.Windows.Forms;
+
+namespace Idmr.LfdResourceEditor
+{
+	public partial class FontForm : ResourceForm
+	{
+		int _index = 0;
+		readonly Bitmap _charMap = null;
+		readonly Bitmap _glyph = null;
+		LfdReader.Font _wrk => (LfdReader.Font)_working;
+		LfdReader.Font _font => (LfdReader.Font)_resource;
+
+		public FontForm(LfdFile lfd, LfdReader.Font font, bool readOnly = false) : base(lfd, font, readOnly)
+		{
+			InitializeComponent();
+			_working = new LfdReader.Font(1, 1);	// dummy ctor, 1 char, 1px
+			_wrk.DecodeResource(_font.RawData, false);
+			_charMap = new Bitmap(pnlCharMap.Width, pnlCharMap.Height);
+			_glyph = new Bitmap(pctGlyph.Width, pctGlyph.Height);
+			_isLoading = true;
+			numStartChar.Value = _wrk.StartingChar;
+			numCount.Value = _wrk.NumberOfGlyphs;
+			numMaxWidth.Value = _wrk.BitsPerScanLine;
+			numHeight.Value = _wrk.Height;
+			numBaseLine.Value = _wrk.BaseLine;
+			_isLoading = false;
+			numBaseLine.ReadOnly = numMaxWidth.ReadOnly = _isReadOnly;
+			if (_isReadOnly) numBaseLine.Increment = numMaxWidth.Increment = 0;
+			chkEdit.Enabled = !_isReadOnly;
+			int numRows = (int)Math.Ceiling((double)_wrk.NumberOfGlyphs / pnlCharMap.Width * (_wrk.BitsPerScanLine + 1));  // rows of glyphs in pnlImages
+			vsbCharMap.Enabled = (numRows * (_wrk.Height + 1) > pnlCharMap.Height);
+			vsbCharMap.Value = 0;
+			if (vsbCharMap.Enabled) vsbCharMap.Maximum = numRows * (_wrk.Height + 2) - pnlCharMap.Height;
+
+			paintGlyphs();
+			updateGlyph();
+		}
+
+		void paintGlyphs()
+		{
+			Graphics g = Graphics.FromImage(_charMap);
+			g.Clear(SystemColors.ControlDark);
+			for (int index = 0, y = 0; ; y++)
+			{
+				for (int x = 0; x < _charMap.Width / (_wrk.BitsPerScanLine + 1); index++, x++)
+				{
+					if (index >= _wrk.NumberOfGlyphs) break;
+					g.DrawImageUnscaled(_wrk.Glyphs[index], x * (_wrk.BitsPerScanLine + 1), y * (_wrk.Height + 1) - vsbCharMap.Value);
+				}
+				if (index >= _wrk.NumberOfGlyphs) break;
+			}
+			pnlCharMap.Invalidate();
+			g.Dispose();
+		}
+
+		void updateGlyph()
+		{
+			Graphics g = Graphics.FromImage(_glyph);
+			g.Clear(SystemColors.Control);
+			g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+			var gl = _wrk.Glyphs[_index];
+			g.DrawImage(gl, (pctGlyph.Width - gl.Width * 5) / 2, (pctGlyph.Height - gl.Height * 5) / 2, gl.Width * 5, gl.Height * 5);
+			pctGlyph.Invalidate();
+			g.Dispose();
+			_isLoading = true;
+			lblGlyph.Text = $"Glyph #{_index + 1}";
+			numWidth.Value = _wrk.Glyphs[_index].Width;
+			int value = _wrk.StartingChar + _index;
+			lblAscii.Text = $"ASCII: {value}";
+			lblChar.Text = $"Char: {(char)value}";
+			if (value == 38) lblChar.Text = "Char: &&";
+			if (value == 126 || value == 127)
+			{
+				lblShownAs.Text = "NOTE: glyph used is normally " + (value == 126 ? "^ or TM" : "~");
+				lblShownAs.Visible = true;
+			}
+			else lblShownAs.Visible = false;
+			_isLoading = false;
+		}
+		/// <summary>Push the working copy to <see cref="ResourceForm.Resource"/>.</summary>
+		protected override void updateLfd()
+		{
+			_wrk.EncodeResource();
+			_font.DecodeResource(_wrk.RawData, false);
+		}
+
+		private void chkEdit_CheckedChanged(object sender, EventArgs e)
+		{
+			numWidth.ReadOnly = chkEdit.Checked;
+			numWidth.Increment = (chkEdit.Checked ? 1 : 0);
+			lblEdit.Visible = chkEdit.Checked;
+		}
+
+		private void cmdExport_Click(object sender, EventArgs e)
+		{
+			savFont.FileName = $"{Path.GetFileNameWithoutExtension(_lfd.FileName)}-{_font.Name}";
+			var response = savFont.ShowDialog();
+			if (response != DialogResult.OK) return;
+
+			FileStream fs = null;
+			try
+			{
+				fs = File.OpenWrite(savFont.FileName);
+				BinaryWriter bw = new BinaryWriter(fs);
+				bw.Write(_font.ToString().ToCharArray());
+				bw.Write((long)0);
+				fs.Position = Resource.LengthOffset;
+				bw.Write(_wrk.Length);
+				bw.Write(_wrk.RawData);
+				fs.SetLength(fs.Position);
+			}
+			catch (Exception x) { MessageBox.Show(x.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+			finally { fs?.Close(); }
+		}
+		private void cmdImport_Click(object sender, EventArgs e)
+		{
+			var response = opnFont.ShowDialog();
+			if (response != DialogResult.OK) return;
+
+			try
+			{
+				var newFont = new LfdReader.Font(opnFont.FileName, 0);
+				if (newFont.Name != _font.Name)
+				{
+					response = MessageBox.Show($"Selected FONT ({newFont.Name}) does not match existing ({_font.Name}). Continue?", "Name mismatch", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+					if (response != DialogResult.Yes) return;
+				}
+				_wrk.DecodeResource(newFont.RawData, false);
+				markDirty();
+				paintGlyphs();
+			}
+			catch (Exception x) { MessageBox.Show(x.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+		}
+		private void cmdNext_Click(object sender, EventArgs e)
+		{
+			if (_index == (_wrk.NumberOfGlyphs - 1)) return;
+
+			_index++;
+			updateGlyph();
+		}
+		private void cmdPrev_Click(object sender, EventArgs e)
+		{
+			if (_index == 0) return;
+
+			_index--;
+			updateGlyph();
+		}
+
+		private void numHeight_ValueChanged(object sender, EventArgs e)
+		{
+			numBaseLine.Maximum = numHeight.Value;
+			if (_isLoading) return;
+
+			// TODO: height change
+			markDirty();
+		}
+		private void numMaxWidth_ValueChanged(object sender, EventArgs e)
+		{
+			numWidth.Maximum = numMaxWidth.Value;
+			if (_isLoading) return;
+
+			// TODO: max width change
+			numMaxWidth.Value = (int)(numMaxWidth.Value / 8) * 8;
+			markDirty();
+		}
+		private void numWidth_ValueChanged(object sender, EventArgs e)
+		{
+			if (_isLoading) return;
+			if (!chkEdit.Checked)
+			{
+				numWidth.Value = _wrk.Glyphs[_index].Width;
+				return;
+			}
+
+			// TODO: width change
+			markDirty();
+		}
+
+		private void pctGlyph_Paint(object sender, PaintEventArgs e)
+		{
+			Graphics g = e.Graphics;
+			g.DrawImageUnscaled(_glyph, 0, 0);
+		}
+
+		private void pnlCharMap_MouseClick(object sender, MouseEventArgs e)
+		{
+			int x, y, glyphsPerRow, rows;
+			glyphsPerRow = pnlCharMap.Width / (_wrk.BitsPerScanLine + 1);
+			rows = (int)Math.Ceiling((double)_wrk.NumberOfGlyphs / glyphsPerRow);
+			x = e.X / (_wrk.BitsPerScanLine + 1);
+			if ((x + 1) * (_wrk.BitsPerScanLine + 1) > pnlCharMap.Width) x--;
+			y = (e.Y + vsbCharMap.Value) / (_wrk.Height + 1);
+			if ((y + 1) * (_wrk.Height + 1) > rows * (_wrk.Height + 1)) y--;
+			_index = glyphsPerRow * y + x;
+			if (_index > _wrk.NumberOfGlyphs) _index = _wrk.NumberOfGlyphs - 1;
+			updateGlyph();
+		}
+		private void pnlCharMap_Paint(object sender, PaintEventArgs e)
+		{
+			Graphics g = e.Graphics;
+			g.DrawImageUnscaled(_charMap, 0, 0);
+		}
+
+		private void vsbCharMap_ValueChanged(object sender, EventArgs e) => paintGlyphs();
+
+		
+	}
+}

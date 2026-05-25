@@ -17,7 +17,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Security.Cryptography;
 using System.Windows.Forms;
 
 namespace Idmr.LfdResourceEditor
@@ -143,17 +142,26 @@ namespace Idmr.LfdResourceEditor
 			Form resFrm;
 			switch (res.Type)
 			{
+				case Resource.ResourceType.Anim:
+					// TODO: ANIM
+					break;
 				case Resource.ResourceType.Blas:
 				case Resource.ResourceType.Voic:
 					resFrm = new BlasForm(_lfd, (Blas)res) { MdiParent = this };
 					resFrm.Show();
 					break;
-				case Resource.ResourceType.Text:
-					resFrm = new TextForm(_lfd, (Text)res) { MdiParent = this };
+				case Resource.ResourceType.Delt:
+					// TODO: DELT
+				case Resource.ResourceType.Font:
+					resFrm = new FontForm(_lfd, (LfdReader.Font)res) { MdiParent = this };
 					resFrm.Show();
 					break;
 				case Resource.ResourceType.Pltt:
 					resFrm = new PlttForm(_lfd, (Pltt)res) { MdiParent = this };
+					resFrm.Show();
+					break;
+				case Resource.ResourceType.Text:
+					resFrm = new TextForm(_lfd, (Text)res) { MdiParent = this };
 					resFrm.Show();
 					break;
 			}

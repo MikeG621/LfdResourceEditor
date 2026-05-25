@@ -18,17 +18,27 @@ using System.Windows.Forms;
 
 namespace Idmr.LfdResourceEditor
 {
+	/// <summary>Represents the base Form used for all resources.</summary>
 	public partial class ResourceForm : Form
 	{
+		/// <summary>Loading flag to skip UI changes.</summary>
 		protected bool _isLoading;
+		/// <summary>Flag to prevent making changes.</summary>
 		protected readonly bool _isReadOnly;
 		protected readonly LfdFile _lfd;
+		/// <summary>Original resource, inherited forms should define a cast accessor.</summary>
 		protected readonly Resource _resource;
+		/// <summary>Working copy of the original, inherited forms should define a cast accessor.</summary>
 		protected Resource _working = null;
 		bool _isDirty => Text.EndsWith("*");
 		MainForm _parent => MdiParent as MainForm;
 
+		/// <summary>COMPILER USE ONLY</summary>
 		protected ResourceForm() => InitializeComponent();
+		/// <summary>Performs the common initialization.</summary>
+		/// <param name="lfd">The parent LFD.</param>
+		/// <param name="resource">The resource to load.</param>
+		/// <param name="readOnly">If editing is prevented.</param>
 		public ResourceForm(LfdFile lfd, Resource resource, bool readOnly = false)
 		{
 			InitializeComponent();
@@ -39,6 +49,14 @@ namespace Idmr.LfdResourceEditor
 			if (readOnly) Text += " (Read only)";
 		}
 
+		/// <summary>Allows the form to close bypassing the dirty check.</summary>
+		public void ForceClose()
+		{
+			Text = Text.TrimEnd('*');
+			Close();
+		}
+
+		/// <summary>Marks the form dirty, and ensures the working resource is dirtied.</summary>
 		protected void markDirty()
 		{
 			if (_isDirty) return;
@@ -47,6 +65,8 @@ namespace Idmr.LfdResourceEditor
 			_working.Dirty();
 		}
 
+		/// <summary>MUST OVERRIDE. Use to push the working copy to the original resource.</summary>
+		/// <exception cref="NotImplementedException"></exception>
 		protected virtual void updateLfd() => throw new NotImplementedException();
 
 		private void ResourceForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -66,16 +86,10 @@ namespace Idmr.LfdResourceEditor
 			Text = Text.TrimEnd('*');
 		}
 
-		#region IResourceForm members
-		public void ForceClose()
-		{
-			Text = Text.TrimEnd('*');
-			Close();
-		}
-
+		/// <summary>Gets a reference to the source LFD.</summary>
 		public LfdFile ParentLfd => _lfd;
-
+		
+		/// <summary>Gets a reference to the original resource.</summary>
 		public Resource Resource => _resource;
-		#endregion
 	}
 }
