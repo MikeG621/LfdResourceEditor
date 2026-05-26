@@ -66,6 +66,52 @@ namespace Idmr.LfdResourceEditor
 			_pltt.DecodeResource(_wrk.RawData, false);
 		}
 
+		private void btnPlay_Click(object sender, System.EventArgs e)
+		{
+			if (tmrRotator.Enabled)
+			{
+				tmrRotator.Enabled = false;
+				btnPlay.Text = "&Play";
+				var rot = _wrk.Rotators[_currentRotator];
+				for (int i = 0; i < rot.RotatedColors.Length; i++)
+					pnlColors[rot.StartIndex + i].BackColor = _wrk.Entries[rot.StartIndex + i];
+			}
+			else
+			{
+				tmrRotator.Enabled = true;
+				_rotFrame = 0;
+				btnPlay.Text = "&Stop";
+			}
+		}
+
+		private void grpRotators_EnabledChanged(object sender, System.EventArgs e)
+		{
+			if (!grpRotators.Enabled) return;
+
+			numRotatorIndex_ValueChanged("grpRotators", new EventArgs());
+		}
+		private void numFrameDivider_ValueChanged(object sender, EventArgs e)
+		{
+			lblFrames.Text = $"= {_wrk.Rotators[_currentRotator].CycleFrequency} Frames";
+		}
+		private void numRotators_ValueChanged(object sender, System.EventArgs e)
+		{
+			grpRotators.Enabled = numRotators.Value > 0;
+			numRotatorIndex.Maximum = numRotators.Value - 1;
+		}
+		private void numRotatorIndex_ValueChanged(object sender, EventArgs e)
+		{
+			if (numRotators.Value == 0) return;
+
+			if (tmrRotator.Enabled) btnPlay_Click("numRotatorIndex", new EventArgs());
+			bool btemp = _isLoading;
+			_isLoading = true;
+			numRotatorStart.Value = _wrk.Rotators[_currentRotator].StartIndex;
+			numRotatorEnd.Value = _wrk.Rotators[_currentRotator].EndIndex;
+			numFrameDivider.Value = _wrk.Rotators[_currentRotator].FrameDivider;
+			_isLoading = btemp;
+		}
+
 		private void pnlColors_Click(object sender, System.EventArgs e)
 		{
 			if (!(sender is Panel)) return;
@@ -82,7 +128,6 @@ namespace Idmr.LfdResourceEditor
 			pnlColors[i].BackColor = clrDlg.Color;
 			markDirty();
 		}
-
 		private void pnlColors_MouseEnter(object sender, System.EventArgs e)
 		{
 			if (!(sender is Panel)) return;
@@ -92,55 +137,6 @@ namespace Idmr.LfdResourceEditor
 			if (i < _wrk.StartIndex || i > _wrk.EndIndex) return;
 
 			lblColor.Text = $"Index: {i}, R: {_wrk.Entries[i].R}, G: {_wrk.Entries[i].G}, B: {_wrk.Entries[i].B}";
-		}
-
-		private void cmdPlay_Click(object sender, System.EventArgs e)
-		{
-			if (tmrRotator.Enabled)
-			{
-				tmrRotator.Enabled = false;
-				cmdPlay.Text = "&Play";
-				var rot = _wrk.Rotators[_currentRotator];
-				for (int i = 0; i < rot.RotatedColors.Length; i++)
-					pnlColors[rot.StartIndex + i].BackColor = _wrk.Entries[rot.StartIndex + i];
-			}
-			else
-			{
-				tmrRotator.Enabled = true;
-				_rotFrame = 0;
-				cmdPlay.Text = "&Stop";
-			}
-		}
-
-		private void numRotators_ValueChanged(object sender, System.EventArgs e)
-		{
-			grpRotators.Enabled = numRotators.Value > 0;
-			numRotatorIndex.Maximum = numRotators.Value - 1;
-		}
-
-		private void grpRotators_EnabledChanged(object sender, System.EventArgs e)
-		{
-			if (!grpRotators.Enabled) return;
-
-			numRotatorIndex_ValueChanged("grpRotators", new EventArgs());
-		}
-
-		private void numRotatorIndex_ValueChanged(object sender, EventArgs e)
-		{
-			if (numRotators.Value == 0) return;
-
-			if (tmrRotator.Enabled) cmdPlay_Click("numRotatorIndex", new EventArgs());
-			bool btemp = _isLoading;
-			_isLoading = true;
-			numRotatorStart.Value = _wrk.Rotators[_currentRotator].StartIndex;
-			numRotatorEnd.Value = _wrk.Rotators[_currentRotator].EndIndex;
-			numFrameDivider.Value = _wrk.Rotators[_currentRotator].FrameDivider;
-			_isLoading = btemp;
-		}
-
-		private void numFrameDivider_ValueChanged(object sender, EventArgs e)
-		{
-			lblFrames.Text = $"= {_wrk.Rotators[_currentRotator].CycleFrequency} Frames";
 		}
 
 		private void tmrRotator_Tick(object sender, EventArgs e)

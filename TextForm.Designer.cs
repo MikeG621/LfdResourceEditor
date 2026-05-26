@@ -35,9 +35,9 @@
 			this.lstStrings = new System.Windows.Forms.ListBox();
 			this.SuspendLayout();
 			// 
-			// cmdUpdate
+			// btnUpdate
 			// 
-			this.cmdUpdate.Location = new System.Drawing.Point(364, 202);
+			this.btnUpdate.Location = new System.Drawing.Point(364, 202);
 			// 
 			// lblOriginalLength
 			// 
@@ -98,7 +98,7 @@
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.lstStrings);
 			this.Name = "NewTextForm";
-			this.Controls.SetChildIndex(this.cmdUpdate, 0);
+			this.Controls.SetChildIndex(this.btnUpdate, 0);
 			this.Controls.SetChildIndex(this.lstStrings, 0);
 			this.Controls.SetChildIndex(this.label1, 0);
 			this.Controls.SetChildIndex(this.txtString, 0);

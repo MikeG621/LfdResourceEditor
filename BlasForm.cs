@@ -31,7 +31,7 @@ namespace Idmr.LfdResourceEditor
 			_working = new Blas();
 			_wrk.DecodeResource(_blas.RawData, false);
 			updateLabels();
-			cmdImport.Enabled = !readOnly;
+			btnImport.Enabled = !readOnly;
 		}
 
 		// this gets us the required function to play .WAV
@@ -78,7 +78,7 @@ namespace Idmr.LfdResourceEditor
 			s.Write(bytes, 0, bytes.Length);
 		}
 
-		private void cmdPlay_Click(object sender, EventArgs e)
+		private void btnPlay_Click(object sender, EventArgs e)
 		{
 			MemoryStream mem = new MemoryStream();
 			vocToWav(mem);
@@ -89,7 +89,7 @@ namespace Idmr.LfdResourceEditor
 			mem.Close();
 		}
 
-		private void cmdExport_Click(object sender, EventArgs e)
+		private void btnExport_Click(object sender, EventArgs e)
 		{
 			var response = savWav.ShowDialog();
 			if (response != DialogResult.OK) return;
@@ -105,7 +105,7 @@ namespace Idmr.LfdResourceEditor
 			finally { fs?.Close(); }
 		}
 
-		private void cmdImport_Click(object sender, EventArgs e)
+		private void btnImport_Click(object sender, EventArgs e)
 		{
 			var response = opnWav.ShowDialog();
 			if (response != DialogResult.OK) return;

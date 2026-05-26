@@ -16,7 +16,6 @@ using Idmr.LfdReader;
 using System;
 using System.Drawing;
 using System.IO;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Windows.Forms;
 
 namespace Idmr.LfdResourceEditor
@@ -26,6 +25,7 @@ namespace Idmr.LfdResourceEditor
 		int _index = 0;
 		readonly Bitmap _charMap = null;
 		readonly Bitmap _glyph = null;
+		int _glyphLeft, _glyphTop;
 		LfdReader.Font _wrk => (LfdReader.Font)_working;
 		LfdReader.Font _font => (LfdReader.Font)_resource;
 
@@ -72,13 +72,20 @@ namespace Idmr.LfdResourceEditor
 			g.Dispose();
 		}
 
+		void refreshGlyph()
+		{
+
+		}
+
 		void updateGlyph()
 		{
 			Graphics g = Graphics.FromImage(_glyph);
 			g.Clear(SystemColors.Control);
 			g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
 			var gl = _wrk.Glyphs[_index];
-			g.DrawImage(gl, (pctGlyph.Width - gl.Width * 5) / 2, (pctGlyph.Height - gl.Height * 5) / 2, gl.Width * 5, gl.Height * 5);
+			_glyphLeft = (pctGlyph.Width - gl.Width * 5) / 2;
+			_glyphTop = (pctGlyph.Height - gl.Height * 5) / 2;
+			g.DrawImage(gl, _glyphLeft, _glyphTop, gl.Width * 5, gl.Height * 5);
 			pctGlyph.Invalidate();
 			g.Dispose();
 			_isLoading = true;
@@ -103,14 +110,7 @@ namespace Idmr.LfdResourceEditor
 			_font.DecodeResource(_wrk.RawData, false);
 		}
 
-		private void chkEdit_CheckedChanged(object sender, EventArgs e)
-		{
-			numWidth.ReadOnly = chkEdit.Checked;
-			numWidth.Increment = (chkEdit.Checked ? 1 : 0);
-			lblEdit.Visible = chkEdit.Checked;
-		}
-
-		private void cmdExport_Click(object sender, EventArgs e)
+		private void btnExport_Click(object sender, EventArgs e)
 		{
 			savFont.FileName = $"{Path.GetFileNameWithoutExtension(_lfd.FileName)}-{_font.Name}";
 			var response = savFont.ShowDialog();
@@ -131,7 +131,7 @@ namespace Idmr.LfdResourceEditor
 			catch (Exception x) { MessageBox.Show(x.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); }
 			finally { fs?.Close(); }
 		}
-		private void cmdImport_Click(object sender, EventArgs e)
+		private void btnImport_Click(object sender, EventArgs e)
 		{
 			var response = opnFont.ShowDialog();
 			if (response != DialogResult.OK) return;
@@ -150,19 +150,26 @@ namespace Idmr.LfdResourceEditor
 			}
 			catch (Exception x) { MessageBox.Show(x.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); }
 		}
-		private void cmdNext_Click(object sender, EventArgs e)
+		private void btnNext_Click(object sender, EventArgs e)
 		{
 			if (_index == (_wrk.NumberOfGlyphs - 1)) return;
 
 			_index++;
 			updateGlyph();
 		}
-		private void cmdPrev_Click(object sender, EventArgs e)
+		private void btnPrev_Click(object sender, EventArgs e)
 		{
 			if (_index == 0) return;
 
 			_index--;
 			updateGlyph();
+		}
+
+		private void chkEdit_CheckedChanged(object sender, EventArgs e)
+		{
+			numWidth.ReadOnly = chkEdit.Checked;
+			numWidth.Increment = (chkEdit.Checked ? 1 : 0);
+			lblEdit.Visible = chkEdit.Checked;
 		}
 
 		private void numHeight_ValueChanged(object sender, EventArgs e)
@@ -192,9 +199,18 @@ namespace Idmr.LfdResourceEditor
 			}
 
 			// TODO: width change
+			refreshGlyph();
 			markDirty();
 		}
 
+		private void pctGlyph_Click(object sender, EventArgs e)
+		{
+			if (!chkEdit.Checked) return;
+
+			// TODO: bit flip
+			refreshGlyph();
+			markDirty();
+		}
 		private void pctGlyph_Paint(object sender, PaintEventArgs e)
 		{
 			Graphics g = e.Graphics;
@@ -221,7 +237,5 @@ namespace Idmr.LfdResourceEditor
 		}
 
 		private void vsbCharMap_ValueChanged(object sender, EventArgs e) => paintGlyphs();
-
-		
 	}
 }

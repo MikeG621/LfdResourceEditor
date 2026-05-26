@@ -75,10 +75,10 @@ namespace Idmr.LfdResourceEditor
 
 			var response = MessageBox.Show($"Push updates to {_lfd.FileName}?", "Unsaved changes", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
 			if (response == DialogResult.Cancel) e.Cancel = true;
-			else if (response == DialogResult.Yes) cmdUpdate_Click("closing", new EventArgs());
+			else if (response == DialogResult.Yes) btnUpdate_Click("closing", new EventArgs());
 		}
 
-		private void cmdUpdate_Click(object sender, EventArgs e)
+		private void btnUpdate_Click(object sender, EventArgs e)
 		{
 			updateLfd();
 			_resource.Dirty();

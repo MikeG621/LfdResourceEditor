@@ -28,7 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.cmdPlay = new System.Windows.Forms.Button();
+			this.btnPlay = new System.Windows.Forms.Button();
 			this.lblFreq = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
 			this.lblDuration0 = new System.Windows.Forms.Label();
@@ -36,25 +36,25 @@
 			this.lblSdb1 = new System.Windows.Forms.Label();
 			this.lblDuration1 = new System.Windows.Forms.Label();
 			this.lblRepeat1 = new System.Windows.Forms.Label();
-			this.cmdExport = new System.Windows.Forms.Button();
-			this.cmdImport = new System.Windows.Forms.Button();
+			this.btnExport = new System.Windows.Forms.Button();
+			this.btnImport = new System.Windows.Forms.Button();
 			this.opnWav = new System.Windows.Forms.OpenFileDialog();
 			this.savWav = new System.Windows.Forms.SaveFileDialog();
 			this.SuspendLayout();
 			// 
-			// cmdUpdate
+			// btnUpdate
 			// 
-			this.cmdUpdate.Location = new System.Drawing.Point(199, 81);
+			this.btnUpdate.Location = new System.Drawing.Point(199, 81);
 			// 
-			// cmdPlay
+			// btnPlay
 			// 
-			this.cmdPlay.Location = new System.Drawing.Point(158, 4);
-			this.cmdPlay.Name = "cmdPlay";
-			this.cmdPlay.Size = new System.Drawing.Size(75, 23);
-			this.cmdPlay.TabIndex = 1;
-			this.cmdPlay.Text = "&Play";
-			this.cmdPlay.UseVisualStyleBackColor = true;
-			this.cmdPlay.Click += new System.EventHandler(this.cmdPlay_Click);
+			this.btnPlay.Location = new System.Drawing.Point(158, 4);
+			this.btnPlay.Name = "btnPlay";
+			this.btnPlay.Size = new System.Drawing.Size(75, 23);
+			this.btnPlay.TabIndex = 1;
+			this.btnPlay.Text = "&Play";
+			this.btnPlay.UseVisualStyleBackColor = true;
+			this.btnPlay.Click += new System.EventHandler(this.btnPlay_Click);
 			// 
 			// lblFreq
 			// 
@@ -119,25 +119,25 @@
 			this.lblRepeat1.TabIndex = 5;
 			this.lblRepeat1.Text = "Repeats:";
 			// 
-			// cmdExport
+			// btnExport
 			// 
-			this.cmdExport.Location = new System.Drawing.Point(118, 33);
-			this.cmdExport.Name = "cmdExport";
-			this.cmdExport.Size = new System.Drawing.Size(75, 23);
-			this.cmdExport.TabIndex = 6;
-			this.cmdExport.Text = "&Export";
-			this.cmdExport.UseVisualStyleBackColor = true;
-			this.cmdExport.Click += new System.EventHandler(this.cmdExport_Click);
+			this.btnExport.Location = new System.Drawing.Point(118, 33);
+			this.btnExport.Name = "btnExport";
+			this.btnExport.Size = new System.Drawing.Size(75, 23);
+			this.btnExport.TabIndex = 6;
+			this.btnExport.Text = "&Export";
+			this.btnExport.UseVisualStyleBackColor = true;
+			this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
 			// 
-			// cmdImport
+			// btnImport
 			// 
-			this.cmdImport.Location = new System.Drawing.Point(199, 33);
-			this.cmdImport.Name = "cmdImport";
-			this.cmdImport.Size = new System.Drawing.Size(75, 23);
-			this.cmdImport.TabIndex = 7;
-			this.cmdImport.Text = "&Import .wav";
-			this.cmdImport.UseVisualStyleBackColor = true;
-			this.cmdImport.Click += new System.EventHandler(this.cmdImport_Click);
+			this.btnImport.Location = new System.Drawing.Point(199, 33);
+			this.btnImport.Name = "btnImport";
+			this.btnImport.Size = new System.Drawing.Size(75, 23);
+			this.btnImport.TabIndex = 7;
+			this.btnImport.Text = "&Import .wav";
+			this.btnImport.UseVisualStyleBackColor = true;
+			this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
 			// 
 			// opnWav
 			// 
@@ -153,8 +153,8 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.ClientSize = new System.Drawing.Size(286, 118);
-			this.Controls.Add(this.cmdImport);
-			this.Controls.Add(this.cmdExport);
+			this.Controls.Add(this.btnImport);
+			this.Controls.Add(this.btnExport);
 			this.Controls.Add(this.lblRepeat1);
 			this.Controls.Add(this.lblRepeat0);
 			this.Controls.Add(this.lblDuration1);
@@ -162,10 +162,10 @@
 			this.Controls.Add(this.lblSdb1);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.lblFreq);
-			this.Controls.Add(this.cmdPlay);
+			this.Controls.Add(this.btnPlay);
 			this.Name = "BlasForm";
-			this.Controls.SetChildIndex(this.cmdUpdate, 0);
-			this.Controls.SetChildIndex(this.cmdPlay, 0);
+			this.Controls.SetChildIndex(this.btnUpdate, 0);
+			this.Controls.SetChildIndex(this.btnPlay, 0);
 			this.Controls.SetChildIndex(this.lblFreq, 0);
 			this.Controls.SetChildIndex(this.label1, 0);
 			this.Controls.SetChildIndex(this.lblSdb1, 0);
@@ -173,8 +173,8 @@
 			this.Controls.SetChildIndex(this.lblDuration1, 0);
 			this.Controls.SetChildIndex(this.lblRepeat0, 0);
 			this.Controls.SetChildIndex(this.lblRepeat1, 0);
-			this.Controls.SetChildIndex(this.cmdExport, 0);
-			this.Controls.SetChildIndex(this.cmdImport, 0);
+			this.Controls.SetChildIndex(this.btnExport, 0);
+			this.Controls.SetChildIndex(this.btnImport, 0);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -182,7 +182,7 @@
 
 		#endregion
 
-		private System.Windows.Forms.Button cmdPlay;
+		private System.Windows.Forms.Button btnPlay;
 		private System.Windows.Forms.Label lblFreq;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label lblDuration0;
@@ -190,8 +190,8 @@
 		private System.Windows.Forms.Label lblSdb1;
 		private System.Windows.Forms.Label lblDuration1;
 		private System.Windows.Forms.Label lblRepeat1;
-		private System.Windows.Forms.Button cmdExport;
-		private System.Windows.Forms.Button cmdImport;
+		private System.Windows.Forms.Button btnExport;
+		private System.Windows.Forms.Button btnImport;
 		private System.Windows.Forms.OpenFileDialog opnWav;
 		private System.Windows.Forms.SaveFileDialog savWav;
 	}

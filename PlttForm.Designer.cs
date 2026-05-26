@@ -30,7 +30,7 @@
 		{
 			this.components = new System.ComponentModel.Container();
 			this.grpRotators = new System.Windows.Forms.GroupBox();
-			this.cmdPlay = new System.Windows.Forms.Button();
+			this.btnPlay = new System.Windows.Forms.Button();
 			this.lblFrames = new System.Windows.Forms.Label();
 			this.label8 = new System.Windows.Forms.Label();
 			this.label7 = new System.Windows.Forms.Label();
@@ -60,13 +60,13 @@
 			((System.ComponentModel.ISupportInitialize)(this.numStartIndex)).BeginInit();
 			this.SuspendLayout();
 			// 
-			// cmdUpdate
+			// btnUpdate
 			// 
-			this.cmdUpdate.Location = new System.Drawing.Point(39, 258);
+			this.btnUpdate.Location = new System.Drawing.Point(39, 258);
 			// 
 			// grpRotators
 			// 
-			this.grpRotators.Controls.Add(this.cmdPlay);
+			this.grpRotators.Controls.Add(this.btnPlay);
 			this.grpRotators.Controls.Add(this.lblFrames);
 			this.grpRotators.Controls.Add(this.label8);
 			this.grpRotators.Controls.Add(this.label7);
@@ -85,15 +85,15 @@
 			this.grpRotators.Text = "Rotators";
 			this.grpRotators.EnabledChanged += new System.EventHandler(this.grpRotators_EnabledChanged);
 			// 
-			// cmdPlay
+			// btnPlay
 			// 
-			this.cmdPlay.Location = new System.Drawing.Point(52, 131);
-			this.cmdPlay.Name = "cmdPlay";
-			this.cmdPlay.Size = new System.Drawing.Size(48, 23);
-			this.cmdPlay.TabIndex = 11;
-			this.cmdPlay.Text = "&Play";
-			this.cmdPlay.UseVisualStyleBackColor = true;
-			this.cmdPlay.Click += new System.EventHandler(this.cmdPlay_Click);
+			this.btnPlay.Location = new System.Drawing.Point(52, 131);
+			this.btnPlay.Name = "btnPlay";
+			this.btnPlay.Size = new System.Drawing.Size(48, 23);
+			this.btnPlay.TabIndex = 11;
+			this.btnPlay.Text = "&Play";
+			this.btnPlay.UseVisualStyleBackColor = true;
+			this.btnPlay.Click += new System.EventHandler(this.btnPlay_Click);
 			// 
 			// lblFrames
 			// 
@@ -287,7 +287,7 @@
 			this.tmrRotator.Interval = 80;
 			this.tmrRotator.Tick += new System.EventHandler(this.tmrRotator_Tick);
 			// 
-			// NewPlttForm
+			// PlttForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.ClientSize = new System.Drawing.Size(436, 299);
@@ -300,8 +300,8 @@
 			this.Controls.Add(this.numStartIndex);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.label1);
-			this.Name = "NewPlttForm";
-			this.Controls.SetChildIndex(this.cmdUpdate, 0);
+			this.Name = "PlttForm";
+			this.Controls.SetChildIndex(this.btnUpdate, 0);
 			this.Controls.SetChildIndex(this.label1, 0);
 			this.Controls.SetChildIndex(this.label2, 0);
 			this.Controls.SetChildIndex(this.numStartIndex, 0);
@@ -328,7 +328,7 @@
 		#endregion
 
 		private System.Windows.Forms.GroupBox grpRotators;
-		private System.Windows.Forms.Button cmdPlay;
+		private System.Windows.Forms.Button btnPlay;
 		private System.Windows.Forms.Label lblFrames;
 		private System.Windows.Forms.Label label8;
 		private System.Windows.Forms.Label label7;

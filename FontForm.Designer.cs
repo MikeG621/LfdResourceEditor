@@ -40,14 +40,14 @@
 			this.numMaxWidth = new System.Windows.Forms.NumericUpDown();
 			this.numHeight = new System.Windows.Forms.NumericUpDown();
 			this.numBaseLine = new System.Windows.Forms.NumericUpDown();
-			this.cmdPrev = new System.Windows.Forms.Button();
-			this.cmdNext = new System.Windows.Forms.Button();
+			this.btnPrev = new System.Windows.Forms.Button();
+			this.btnNext = new System.Windows.Forms.Button();
 			this.lblGlyph = new System.Windows.Forms.Label();
 			this.lblWidth = new System.Windows.Forms.Label();
 			this.lblAscii = new System.Windows.Forms.Label();
 			this.lblChar = new System.Windows.Forms.Label();
-			this.cmdImport = new System.Windows.Forms.Button();
-			this.cmdExport = new System.Windows.Forms.Button();
+			this.btnImport = new System.Windows.Forms.Button();
+			this.btnExport = new System.Windows.Forms.Button();
 			this.opnFont = new System.Windows.Forms.OpenFileDialog();
 			this.savFont = new System.Windows.Forms.SaveFileDialog();
 			this.chkEdit = new System.Windows.Forms.CheckBox();
@@ -65,9 +65,9 @@
 			((System.ComponentModel.ISupportInitialize)(this.numWidth)).BeginInit();
 			this.SuspendLayout();
 			// 
-			// cmdUpdate
+			// btnUpdate
 			// 
-			this.cmdUpdate.Location = new System.Drawing.Point(5, 177);
+			this.btnUpdate.Location = new System.Drawing.Point(5, 177);
 			// 
 			// pnlCharMap
 			// 
@@ -87,6 +87,7 @@
 			this.pctGlyph.Size = new System.Drawing.Size(120, 100);
 			this.pctGlyph.TabIndex = 2;
 			this.pctGlyph.TabStop = false;
+			this.pctGlyph.Click += new System.EventHandler(this.pctGlyph_Click);
 			this.pctGlyph.Paint += new System.Windows.Forms.PaintEventHandler(this.pctGlyph_Paint);
 			// 
 			// lblStarting
@@ -254,25 +255,25 @@
             0,
             0});
 			// 
-			// cmdPrev
+			// btnPrev
 			// 
-			this.cmdPrev.Location = new System.Drawing.Point(154, 118);
-			this.cmdPrev.Name = "cmdPrev";
-			this.cmdPrev.Size = new System.Drawing.Size(32, 24);
-			this.cmdPrev.TabIndex = 9;
-			this.cmdPrev.Text = "<";
-			this.cmdPrev.UseVisualStyleBackColor = true;
-			this.cmdPrev.Click += new System.EventHandler(this.cmdPrev_Click);
+			this.btnPrev.Location = new System.Drawing.Point(154, 118);
+			this.btnPrev.Name = "btnPrev";
+			this.btnPrev.Size = new System.Drawing.Size(32, 24);
+			this.btnPrev.TabIndex = 9;
+			this.btnPrev.Text = "<";
+			this.btnPrev.UseVisualStyleBackColor = true;
+			this.btnPrev.Click += new System.EventHandler(this.btnPrev_Click);
 			// 
-			// cmdNext
+			// btnNext
 			// 
-			this.cmdNext.Location = new System.Drawing.Point(218, 118);
-			this.cmdNext.Name = "cmdNext";
-			this.cmdNext.Size = new System.Drawing.Size(32, 24);
-			this.cmdNext.TabIndex = 9;
-			this.cmdNext.Text = ">";
-			this.cmdNext.UseVisualStyleBackColor = true;
-			this.cmdNext.Click += new System.EventHandler(this.cmdNext_Click);
+			this.btnNext.Location = new System.Drawing.Point(218, 118);
+			this.btnNext.Name = "btnNext";
+			this.btnNext.Size = new System.Drawing.Size(32, 24);
+			this.btnNext.TabIndex = 9;
+			this.btnNext.Text = ">";
+			this.btnNext.UseVisualStyleBackColor = true;
+			this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
 			// 
 			// lblGlyph
 			// 
@@ -310,25 +311,25 @@
 			this.lblChar.TabIndex = 13;
 			this.lblChar.Text = "Char:";
 			// 
-			// cmdImport
+			// btnImport
 			// 
-			this.cmdImport.Location = new System.Drawing.Point(356, 177);
-			this.cmdImport.Name = "cmdImport";
-			this.cmdImport.Size = new System.Drawing.Size(86, 23);
-			this.cmdImport.TabIndex = 14;
-			this.cmdImport.Text = "&Import FONT";
-			this.cmdImport.UseVisualStyleBackColor = true;
-			this.cmdImport.Click += new System.EventHandler(this.cmdImport_Click);
+			this.btnImport.Location = new System.Drawing.Point(356, 177);
+			this.btnImport.Name = "btnImport";
+			this.btnImport.Size = new System.Drawing.Size(86, 23);
+			this.btnImport.TabIndex = 14;
+			this.btnImport.Text = "&Import FONT";
+			this.btnImport.UseVisualStyleBackColor = true;
+			this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
 			// 
-			// cmdExport
+			// btnExport
 			// 
-			this.cmdExport.Location = new System.Drawing.Point(448, 177);
-			this.cmdExport.Name = "cmdExport";
-			this.cmdExport.Size = new System.Drawing.Size(86, 23);
-			this.cmdExport.TabIndex = 14;
-			this.cmdExport.Text = "E&xport FONT";
-			this.cmdExport.UseVisualStyleBackColor = true;
-			this.cmdExport.Click += new System.EventHandler(this.cmdExport_Click);
+			this.btnExport.Location = new System.Drawing.Point(448, 177);
+			this.btnExport.Name = "btnExport";
+			this.btnExport.Size = new System.Drawing.Size(86, 23);
+			this.btnExport.TabIndex = 14;
+			this.btnExport.Text = "E&xport FONT";
+			this.btnExport.UseVisualStyleBackColor = true;
+			this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
 			// 
 			// opnFont
 			// 
@@ -417,14 +418,14 @@
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.vsbCharMap);
 			this.Controls.Add(this.chkEdit);
-			this.Controls.Add(this.cmdExport);
-			this.Controls.Add(this.cmdImport);
+			this.Controls.Add(this.btnExport);
+			this.Controls.Add(this.btnImport);
 			this.Controls.Add(this.lblChar);
 			this.Controls.Add(this.lblAscii);
 			this.Controls.Add(this.lblWidth);
 			this.Controls.Add(this.lblGlyph);
-			this.Controls.Add(this.cmdNext);
-			this.Controls.Add(this.cmdPrev);
+			this.Controls.Add(this.btnNext);
+			this.Controls.Add(this.btnPrev);
 			this.Controls.Add(this.numBaseLine);
 			this.Controls.Add(this.numHeight);
 			this.Controls.Add(this.numMaxWidth);
@@ -438,7 +439,7 @@
 			this.Controls.Add(this.pctGlyph);
 			this.Controls.Add(this.pnlCharMap);
 			this.Name = "FontForm";
-			this.Controls.SetChildIndex(this.cmdUpdate, 0);
+			this.Controls.SetChildIndex(this.btnUpdate, 0);
 			this.Controls.SetChildIndex(this.pnlCharMap, 0);
 			this.Controls.SetChildIndex(this.pctGlyph, 0);
 			this.Controls.SetChildIndex(this.lblStarting, 0);
@@ -451,14 +452,14 @@
 			this.Controls.SetChildIndex(this.numMaxWidth, 0);
 			this.Controls.SetChildIndex(this.numHeight, 0);
 			this.Controls.SetChildIndex(this.numBaseLine, 0);
-			this.Controls.SetChildIndex(this.cmdPrev, 0);
-			this.Controls.SetChildIndex(this.cmdNext, 0);
+			this.Controls.SetChildIndex(this.btnPrev, 0);
+			this.Controls.SetChildIndex(this.btnNext, 0);
 			this.Controls.SetChildIndex(this.lblGlyph, 0);
 			this.Controls.SetChildIndex(this.lblWidth, 0);
 			this.Controls.SetChildIndex(this.lblAscii, 0);
 			this.Controls.SetChildIndex(this.lblChar, 0);
-			this.Controls.SetChildIndex(this.cmdImport, 0);
-			this.Controls.SetChildIndex(this.cmdExport, 0);
+			this.Controls.SetChildIndex(this.btnImport, 0);
+			this.Controls.SetChildIndex(this.btnExport, 0);
 			this.Controls.SetChildIndex(this.chkEdit, 0);
 			this.Controls.SetChildIndex(this.vsbCharMap, 0);
 			this.Controls.SetChildIndex(this.label1, 0);
@@ -491,14 +492,14 @@
 		private System.Windows.Forms.NumericUpDown numMaxWidth;
 		private System.Windows.Forms.NumericUpDown numHeight;
 		private System.Windows.Forms.NumericUpDown numBaseLine;
-		private System.Windows.Forms.Button cmdPrev;
-		private System.Windows.Forms.Button cmdNext;
+		private System.Windows.Forms.Button btnPrev;
+		private System.Windows.Forms.Button btnNext;
 		private System.Windows.Forms.Label lblGlyph;
 		private System.Windows.Forms.Label lblWidth;
 		private System.Windows.Forms.Label lblAscii;
 		private System.Windows.Forms.Label lblChar;
-		private System.Windows.Forms.Button cmdImport;
-		private System.Windows.Forms.Button cmdExport;
+		private System.Windows.Forms.Button btnImport;
+		private System.Windows.Forms.Button btnExport;
 		private System.Windows.Forms.OpenFileDialog opnFont;
 		private System.Windows.Forms.SaveFileDialog savFont;
 		private System.Windows.Forms.CheckBox chkEdit;
