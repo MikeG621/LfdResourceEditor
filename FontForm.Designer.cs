@@ -185,6 +185,7 @@
             0,
             0,
             0});
+			this.numCount.ValueChanged += new System.EventHandler(this.numCount_ValueChanged);
 			// 
 			// numMaxWidth
 			// 
@@ -254,6 +255,7 @@
             0,
             0,
             0});
+			this.numBaseLine.ValueChanged += new System.EventHandler(this.numBaseLine_ValueChanged);
 			// 
 			// btnPrev
 			// 

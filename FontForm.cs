@@ -46,11 +46,7 @@ namespace Idmr.LfdResourceEditor
 			numBaseLine.ReadOnly = numMaxWidth.ReadOnly = _isReadOnly;
 			if (_isReadOnly) numBaseLine.Increment = numMaxWidth.Increment = 0;
 			chkEdit.Enabled = !_isReadOnly;
-			int numRows = (int)Math.Ceiling((double)_wrk.NumberOfGlyphs / pnlCharMap.Width * (_wrk.BitsPerScanLine + 1));  // rows of glyphs in pnlImages
-			vsbCharMap.Enabled = (numRows * (_wrk.Height + 1) > pnlCharMap.Height);
-			vsbCharMap.Value = 0;
-			if (vsbCharMap.Enabled) vsbCharMap.Maximum = numRows * (_wrk.Height + 2) - pnlCharMap.Height;
-
+			setVsbEnabled();
 			paintGlyphs();
 			updateGlyph();
 		}
@@ -74,11 +70,6 @@ namespace Idmr.LfdResourceEditor
 
 		void refreshGlyph()
 		{
-
-		}
-
-		void updateGlyph()
-		{
 			Graphics g = Graphics.FromImage(_glyph);
 			g.Clear(SystemColors.Control);
 			g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
@@ -88,6 +79,20 @@ namespace Idmr.LfdResourceEditor
 			g.DrawImage(gl, _glyphLeft, _glyphTop, gl.Width * 5, gl.Height * 5);
 			pctGlyph.Invalidate();
 			g.Dispose();
+			// TODO: also update in charmap
+		}
+
+		void setVsbEnabled()
+		{
+			int numRows = (int)Math.Ceiling((double)_wrk.NumberOfGlyphs / pnlCharMap.Width * (_wrk.BitsPerScanLine + 1));  // rows of glyphs in pnlImages
+			vsbCharMap.Enabled = (numRows * (_wrk.Height + 1) > pnlCharMap.Height);
+			vsbCharMap.Value = 0;
+			if (vsbCharMap.Enabled) vsbCharMap.Maximum = numRows * (_wrk.Height + 2) - pnlCharMap.Height;
+		}
+
+		void updateGlyph()
+		{
+			refreshGlyph();
 			_isLoading = true;
 			lblGlyph.Text = $"Glyph #{_index + 1}";
 			numWidth.Value = _wrk.Glyphs[_index].Width;
@@ -172,21 +177,58 @@ namespace Idmr.LfdResourceEditor
 			lblEdit.Visible = chkEdit.Checked;
 		}
 
+		private void numBaseLine_ValueChanged(object sender, EventArgs e)
+		{
+			if (_isLoading) return;
+
+			// TODO: baseline
+		}
+		private void numCount_ValueChanged(object sender, EventArgs e)
+		{
+			if (_isLoading) return;
+
+			// TODO: numchars, needs LR update
+		}
 		private void numHeight_ValueChanged(object sender, EventArgs e)
 		{
 			numBaseLine.Maximum = numHeight.Value;
 			if (_isLoading) return;
 
-			// TODO: height change
+			// TODO: height change, needs LR update
 			markDirty();
 		}
 		private void numMaxWidth_ValueChanged(object sender, EventArgs e)
 		{
-			numWidth.Maximum = numMaxWidth.Value;
+			numMaxWidth.Value = (int)(numMaxWidth.Value / 8) * 8;
 			if (_isLoading) return;
 
-			// TODO: max width change
-			numMaxWidth.Value = (int)(numMaxWidth.Value / 8) * 8;
+			for (int i = 0; i < _wrk.NumberOfGlyphs; i++)
+			{
+				if (_wrk.Glyphs[i].Width > numMaxWidth.Value)
+				{
+					var response = MessageBox.Show("New value is smaller than existing glyph widths.\r\nAre you sure you want to continue?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+					if (response != DialogResult.Yes) return;
+
+					int width = (int)numMaxWidth.Value;
+					for (int j = i; j < _wrk.NumberOfGlyphs; j++)
+						if (_wrk.Glyphs[j].Width > numMaxWidth.Value)
+						{
+							Bitmap newGlyph = new Bitmap(width, _wrk.Height);
+							Graphics g = Graphics.FromImage(newGlyph);
+							g.DrawImageUnscaled(_wrk.Glyphs[j], 0, 0);
+							g.Dispose();
+							_wrk.Glyphs[j] = newGlyph;
+						}
+					break;
+				}
+			}
+			_wrk.BitsPerScanLine = (short)numMaxWidth.Value;
+			_isLoading = true;
+			numWidth.Maximum = numMaxWidth.Value;
+			_isLoading = false;
+			setVsbEnabled();
+			paintGlyphs();
+			refreshGlyph();
 			markDirty();
 		}
 		private void numWidth_ValueChanged(object sender, EventArgs e)
@@ -211,11 +253,7 @@ namespace Idmr.LfdResourceEditor
 			refreshGlyph();
 			markDirty();
 		}
-		private void pctGlyph_Paint(object sender, PaintEventArgs e)
-		{
-			Graphics g = e.Graphics;
-			g.DrawImageUnscaled(_glyph, 0, 0);
-		}
+		private void pctGlyph_Paint(object sender, PaintEventArgs e) => e.Graphics.DrawImageUnscaled(_glyph, 0, 0);
 
 		private void pnlCharMap_MouseClick(object sender, MouseEventArgs e)
 		{
@@ -230,11 +268,7 @@ namespace Idmr.LfdResourceEditor
 			if (_index > _wrk.NumberOfGlyphs) _index = _wrk.NumberOfGlyphs - 1;
 			updateGlyph();
 		}
-		private void pnlCharMap_Paint(object sender, PaintEventArgs e)
-		{
-			Graphics g = e.Graphics;
-			g.DrawImageUnscaled(_charMap, 0, 0);
-		}
+		private void pnlCharMap_Paint(object sender, PaintEventArgs e) => e.Graphics.DrawImageUnscaled(_charMap, 0, 0);
 
 		private void vsbCharMap_ValueChanged(object sender, EventArgs e) => paintGlyphs();
 	}
