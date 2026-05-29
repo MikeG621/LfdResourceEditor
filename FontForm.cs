@@ -77,6 +77,9 @@ namespace Idmr.LfdResourceEditor
 			_glyphLeft = (pctGlyph.Width - gl.Width * 5) / 2;
 			_glyphTop = (pctGlyph.Height - gl.Height * 5) / 2;
 			g.DrawImage(gl, _glyphLeft, _glyphTop, gl.Width * 5, gl.Height * 5);
+			Pen baseLine = new Pen(Color.Blue);
+			int y = _glyphTop + _wrk.BaseLine * 5 + 3;
+			g.DrawLine(baseLine, _glyphLeft - 5, y, _glyphLeft + gl.Width * 5 + 5, y);
 			pctGlyph.Invalidate();
 			g.Dispose();
 			// TODO: also update in charmap
@@ -181,7 +184,9 @@ namespace Idmr.LfdResourceEditor
 		{
 			if (_isLoading) return;
 
-			// TODO: baseline
+			_wrk.BaseLine = (short)numBaseLine.Value;
+			refreshGlyph();
+			markDirty();
 		}
 		private void numCount_ValueChanged(object sender, EventArgs e)
 		{
