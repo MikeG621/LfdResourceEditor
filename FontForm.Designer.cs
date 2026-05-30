@@ -84,11 +84,11 @@
 			this.pctGlyph.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
 			this.pctGlyph.Location = new System.Drawing.Point(154, 12);
 			this.pctGlyph.Name = "pctGlyph";
-			this.pctGlyph.Size = new System.Drawing.Size(120, 100);
+			this.pctGlyph.Size = new System.Drawing.Size(122, 102);
 			this.pctGlyph.TabIndex = 2;
 			this.pctGlyph.TabStop = false;
-			this.pctGlyph.Click += new System.EventHandler(this.pctGlyph_Click);
 			this.pctGlyph.Paint += new System.Windows.Forms.PaintEventHandler(this.pctGlyph_Paint);
+			this.pctGlyph.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pctGlyph_MouseClick);
 			// 
 			// lblStarting
 			// 

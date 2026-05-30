@@ -12,6 +12,7 @@
  * - created
  */
 
+using Idmr.Common;
 using Idmr.LfdReader;
 using System;
 using System.Drawing;
@@ -73,16 +74,21 @@ namespace Idmr.LfdResourceEditor
 			Graphics g = Graphics.FromImage(_glyph);
 			g.Clear(SystemColors.Control);
 			g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+			g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
 			var gl = _wrk.Glyphs[_index];
 			_glyphLeft = (pctGlyph.Width - gl.Width * 5) / 2;
 			_glyphTop = (pctGlyph.Height - gl.Height * 5) / 2;
 			g.DrawImage(gl, _glyphLeft, _glyphTop, gl.Width * 5, gl.Height * 5);
 			Pen baseLine = new Pen(Color.Blue);
-			int y = _glyphTop + _wrk.BaseLine * 5 + 3;
-			g.DrawLine(baseLine, _glyphLeft - 5, y, _glyphLeft + gl.Width * 5 + 5, y);
+			int y = _glyphTop + (_wrk.BaseLine + 1) * 5;
+			g.DrawLine(baseLine, _glyphLeft - 5, y, _glyphLeft + (gl.Width + 1) * 5, y);
 			pctGlyph.Invalidate();
+			int glyphsPerRow;
+			glyphsPerRow = pnlCharMap.Width / (_wrk.BitsPerScanLine + 1);
+			g = Graphics.FromImage(_charMap);
+			g.DrawImageUnscaled(gl, _index % glyphsPerRow * (_wrk.BitsPerScanLine + 1), _index / glyphsPerRow * (_wrk.Height + 1) - vsbCharMap.Value);
 			g.Dispose();
-			// TODO: also update in charmap
+			pnlCharMap.Invalidate();
 		}
 
 		void setVsbEnabled()
@@ -175,7 +181,7 @@ namespace Idmr.LfdResourceEditor
 
 		private void chkEdit_CheckedChanged(object sender, EventArgs e)
 		{
-			numWidth.ReadOnly = chkEdit.Checked;
+			numWidth.ReadOnly = !chkEdit.Checked;
 			numWidth.Increment = (chkEdit.Checked ? 1 : 0);
 			lblEdit.Visible = chkEdit.Checked;
 		}
@@ -212,7 +218,13 @@ namespace Idmr.LfdResourceEditor
 				if (_wrk.Glyphs[i].Width > numMaxWidth.Value)
 				{
 					var response = MessageBox.Show("New value is smaller than existing glyph widths.\r\nAre you sure you want to continue?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-					if (response != DialogResult.Yes) return;
+					if (response != DialogResult.Yes)
+					{
+						_isLoading = true;
+						numMaxWidth.Value = _wrk.BitsPerScanLine;
+						_isLoading = false;
+						return;
+					}
 
 					int width = (int)numMaxWidth.Value;
 					for (int j = i; j < _wrk.NumberOfGlyphs; j++)
@@ -239,22 +251,49 @@ namespace Idmr.LfdResourceEditor
 		private void numWidth_ValueChanged(object sender, EventArgs e)
 		{
 			if (_isLoading) return;
+
 			if (!chkEdit.Checked)
 			{
 				numWidth.Value = _wrk.Glyphs[_index].Width;
 				return;
 			}
 
-			// TODO: width change
+			bool isShrinking = _wrk.Glyphs[_index].Width > numWidth.Value;
+			if (isShrinking)
+			{
+				var response = MessageBox.Show("New value is smaller than existing width.\r\nAre you sure you want to continue?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+				if (response != DialogResult.Yes)
+				{
+					_isLoading = true;
+					numWidth.Value = _wrk.Glyphs[_index].Width;
+					_isLoading = false;
+					return;
+				}
+			}
+
+			Bitmap newGlyph = new Bitmap((int)numWidth.Value, _wrk.Height);
+			Graphics g = Graphics.FromImage(newGlyph);
+			g.Clear(Color.Black);
+			g.DrawImageUnscaled(_wrk.Glyphs[_index], 0, 0);
+			g.Dispose();
+			_wrk.Glyphs[_index] = newGlyph;
 			refreshGlyph();
+			if (isShrinking) paintGlyphs();
 			markDirty();
 		}
 
-		private void pctGlyph_Click(object sender, EventArgs e)
+		private void pctGlyph_MouseClick(object sender, MouseEventArgs e)
 		{
 			if (!chkEdit.Checked) return;
 
-			// TODO: bit flip
+			int x = (e.X - _glyphLeft) / 5;
+			int y = (e.Y - _glyphTop) / 5;
+			var bd = GraphicsFunctions.GetBitmapData(_wrk.Glyphs[_index]);
+			byte[] bytes = new byte[bd.Stride * bd.Height];
+			GraphicsFunctions.CopyImageToBytes(bd, bytes);
+			bytes[y * bd.Stride + x / 8] ^= (byte)(1 << (7 - x % 8));
+			GraphicsFunctions.CopyBytesToImage(bytes, bd);
+			_wrk.Glyphs[_index].UnlockBits(bd);
 			refreshGlyph();
 			markDirty();
 		}

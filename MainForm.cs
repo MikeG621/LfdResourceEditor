@@ -152,6 +152,7 @@ namespace Idmr.LfdResourceEditor
 					break;
 				case Resource.ResourceType.Delt:
 					// TODO: DELT
+					break;
 				case Resource.ResourceType.Font:
 					resFrm = new FontForm(_lfd, (LfdReader.Font)res) { MdiParent = this };
 					resFrm.Show();
