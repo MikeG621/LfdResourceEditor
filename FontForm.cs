@@ -38,7 +38,7 @@ namespace Idmr.LfdResourceEditor
 			_charMap = new Bitmap(pnlCharMap.Width, pnlCharMap.Height);
 			_glyph = new Bitmap(pctGlyph.Width, pctGlyph.Height);
 			_isLoading = true;
-			numStartChar.Value = _wrk.StartingChar;
+			lblStarting.Text += $"    {_wrk.StartingChar}";
 			numCount.Value = _wrk.NumberOfGlyphs;
 			numMaxWidth.Value = _wrk.BitsPerScanLine;
 			numHeight.Value = _wrk.Height;
@@ -205,7 +205,21 @@ namespace Idmr.LfdResourceEditor
 			numBaseLine.Maximum = numHeight.Value;
 			if (_isLoading) return;
 
-			// TODO: height change, needs LR update
+			if (_wrk.Height > numHeight.Value)
+			{
+				var response = MessageBox.Show("New value is smaller than existing height.\r\nAre you sure you want to continue?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+				if (response != DialogResult.Yes)
+				{
+					_isLoading = true;
+					numHeight.Value = _wrk.Height;
+					_isLoading = false;
+					return;
+				}
+			}
+
+			_wrk.Height = (short)numHeight.Value;
+			refreshGlyph();
+			paintGlyphs();
 			markDirty();
 		}
 		private void numMaxWidth_ValueChanged(object sender, EventArgs e)

@@ -35,7 +35,6 @@
 			this.lblBits = new System.Windows.Forms.Label();
 			this.lblHeight = new System.Windows.Forms.Label();
 			this.lblBaseLine = new System.Windows.Forms.Label();
-			this.numStartChar = new System.Windows.Forms.NumericUpDown();
 			this.numCount = new System.Windows.Forms.NumericUpDown();
 			this.numMaxWidth = new System.Windows.Forms.NumericUpDown();
 			this.numHeight = new System.Windows.Forms.NumericUpDown();
@@ -57,7 +56,6 @@
 			this.lblShownAs = new System.Windows.Forms.Label();
 			this.lblEdit = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.pctGlyph)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numStartChar)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numCount)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numMaxWidth)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numHeight)).BeginInit();
@@ -135,39 +133,11 @@
 			this.lblBaseLine.TabIndex = 7;
 			this.lblBaseLine.Text = "BaseLine:";
 			// 
-			// numStartChar
-			// 
-			this.numStartChar.Increment = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-			this.numStartChar.Location = new System.Drawing.Point(86, 10);
-			this.numStartChar.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-			this.numStartChar.Name = "numStartChar";
-			this.numStartChar.ReadOnly = true;
-			this.numStartChar.Size = new System.Drawing.Size(46, 20);
-			this.numStartChar.TabIndex = 8;
-			this.numStartChar.Value = new decimal(new int[] {
-            32,
-            0,
-            0,
-            0});
-			// 
 			// numCount
 			// 
-			this.numCount.Increment = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
 			this.numCount.Location = new System.Drawing.Point(86, 36);
 			this.numCount.Maximum = new decimal(new int[] {
-            255,
+            224,
             0,
             0,
             0});
@@ -177,7 +147,6 @@
             0,
             0});
 			this.numCount.Name = "numCount";
-			this.numCount.ReadOnly = true;
 			this.numCount.Size = new System.Drawing.Size(46, 20);
 			this.numCount.TabIndex = 8;
 			this.numCount.Value = new decimal(new int[] {
@@ -217,11 +186,6 @@
 			// 
 			// numHeight
 			// 
-			this.numHeight.Increment = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
 			this.numHeight.Location = new System.Drawing.Point(86, 88);
 			this.numHeight.Maximum = new decimal(new int[] {
             20,
@@ -229,7 +193,6 @@
             0,
             0});
 			this.numHeight.Name = "numHeight";
-			this.numHeight.ReadOnly = true;
 			this.numHeight.Size = new System.Drawing.Size(46, 20);
 			this.numHeight.TabIndex = 8;
 			this.numHeight.Value = new decimal(new int[] {
@@ -432,7 +395,6 @@
 			this.Controls.Add(this.numHeight);
 			this.Controls.Add(this.numMaxWidth);
 			this.Controls.Add(this.numCount);
-			this.Controls.Add(this.numStartChar);
 			this.Controls.Add(this.lblBaseLine);
 			this.Controls.Add(this.lblHeight);
 			this.Controls.Add(this.lblBits);
@@ -449,7 +411,6 @@
 			this.Controls.SetChildIndex(this.lblBits, 0);
 			this.Controls.SetChildIndex(this.lblHeight, 0);
 			this.Controls.SetChildIndex(this.lblBaseLine, 0);
-			this.Controls.SetChildIndex(this.numStartChar, 0);
 			this.Controls.SetChildIndex(this.numCount, 0);
 			this.Controls.SetChildIndex(this.numMaxWidth, 0);
 			this.Controls.SetChildIndex(this.numHeight, 0);
@@ -469,7 +430,6 @@
 			this.Controls.SetChildIndex(this.lblShownAs, 0);
 			this.Controls.SetChildIndex(this.lblEdit, 0);
 			((System.ComponentModel.ISupportInitialize)(this.pctGlyph)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numStartChar)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numCount)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numMaxWidth)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numHeight)).EndInit();
@@ -489,7 +449,6 @@
 		private System.Windows.Forms.Label lblBits;
 		private System.Windows.Forms.Label lblHeight;
 		private System.Windows.Forms.Label lblBaseLine;
-		private System.Windows.Forms.NumericUpDown numStartChar;
 		private System.Windows.Forms.NumericUpDown numCount;
 		private System.Windows.Forms.NumericUpDown numMaxWidth;
 		private System.Windows.Forms.NumericUpDown numHeight;
