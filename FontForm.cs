@@ -197,8 +197,11 @@ namespace Idmr.LfdResourceEditor
 		private void numCount_ValueChanged(object sender, EventArgs e)
 		{
 			if (_isLoading) return;
+			// The MaxValue is set assuming 32 as the starting char, maximum index of 255
 
-			// TODO: numchars, needs LR update
+			_wrk.NumberOfGlyphs = (short)numCount.Value;
+			paintGlyphs();
+			markDirty();
 		}
 		private void numHeight_ValueChanged(object sender, EventArgs e)
 		{
