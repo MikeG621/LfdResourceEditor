@@ -31,6 +31,7 @@ Currently, there are no other settings/config files.
 ## Latest Release
 
 #### WIP
+- FONT support added.
 - PLTT support added.
 - BLAS/VOIC support added.
 - TEXT Update button now for saving resource to LFD, text auto-dirties working copy.
