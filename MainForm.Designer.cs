@@ -33,6 +33,7 @@
 			this.miFile = new System.Windows.Forms.ToolStripMenuItem();
 			this.miFileOpen = new System.Windows.Forms.ToolStripMenuItem();
 			this.miFileSave = new System.Windows.Forms.ToolStripMenuItem();
+			this.miFileSaveAll = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.miFileQuit = new System.Windows.Forms.ToolStripMenuItem();
 			this.miResource = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,7 +47,8 @@
 			this.opnLfd = new System.Windows.Forms.OpenFileDialog();
 			this.lstResources = new System.Windows.Forms.ListBox();
 			this.panel1 = new System.Windows.Forms.Panel();
-			this.miFileSaveAll = new System.Windows.Forms.ToolStripMenuItem();
+			this.miResourceExport = new System.Windows.Forms.ToolStripMenuItem();
+			this.savResource = new System.Windows.Forms.SaveFileDialog();
 			this.menuMain.SuspendLayout();
 			this.panel1.SuspendLayout();
 			this.SuspendLayout();
@@ -93,6 +95,14 @@
 			this.miFileSave.Text = "&Save";
 			this.miFileSave.Click += new System.EventHandler(this.miFileSave_Click);
 			// 
+			// miFileSaveAll
+			// 
+			this.miFileSaveAll.Enabled = false;
+			this.miFileSaveAll.Name = "miFileSaveAll";
+			this.miFileSaveAll.Size = new System.Drawing.Size(180, 22);
+			this.miFileSaveAll.Text = "Save &All";
+			this.miFileSaveAll.Click += new System.EventHandler(this.miFileSaveAll_Click);
+			// 
 			// toolStripSeparator1
 			// 
 			this.toolStripSeparator1.Name = "toolStripSeparator1";
@@ -109,6 +119,7 @@
 			// miResource
 			// 
 			this.miResource.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.miResourceExport,
             this.miResourceClose,
             this.toolStripSeparator2});
 			this.miResource.Name = "miResource";
@@ -120,6 +131,7 @@
 			this.miResourceClose.Name = "miResourceClose";
 			this.miResourceClose.Size = new System.Drawing.Size(180, 22);
 			this.miResourceClose.Text = "&Close";
+			this.miResourceClose.Click += new System.EventHandler(this.miResourceClose_Click);
 			// 
 			// toolStripSeparator2
 			// 
@@ -190,13 +202,16 @@
 			this.panel1.Size = new System.Drawing.Size(120, 594);
 			this.panel1.TabIndex = 8;
 			// 
-			// miFileSaveAll
+			// miResourceExport
 			// 
-			this.miFileSaveAll.Enabled = false;
-			this.miFileSaveAll.Name = "miFileSaveAll";
-			this.miFileSaveAll.Size = new System.Drawing.Size(180, 22);
-			this.miFileSaveAll.Text = "Save &All";
-			this.miFileSaveAll.Click += new System.EventHandler(this.miFileSaveAll_Click);
+			this.miResourceExport.Name = "miResourceExport";
+			this.miResourceExport.Size = new System.Drawing.Size(180, 22);
+			this.miResourceExport.Text = "&Export";
+			this.miResourceExport.Click += new System.EventHandler(this.miResourceExport_Click);
+			// 
+			// savResource
+			// 
+			this.savResource.Title = "Export Resource";
 			// 
 			// MainForm
 			// 
@@ -240,6 +255,8 @@
 		private System.Windows.Forms.ToolStripComboBox cboOpenedLfds;
 		private System.Windows.Forms.ToolStripMenuItem miLfdCloseAll;
 		private System.Windows.Forms.ToolStripMenuItem miFileSaveAll;
+		private System.Windows.Forms.ToolStripMenuItem miResourceExport;
+		private System.Windows.Forms.SaveFileDialog savResource;
 	}
 }
 

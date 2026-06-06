@@ -76,6 +76,12 @@
     <Compile Include="BlasForm.Designer.cs">
       <DependentUpon>BlasForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="DeltForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeltForm.Designer.cs">
+      <DependentUpon>DeltForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="FontForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -111,6 +117,9 @@
     </Compile>
     <EmbeddedResource Include="BlasForm.resx">
       <DependentUpon>BlasForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeltForm.resx">
+      <DependentUpon>DeltForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FontForm.resx">
       <DependentUpon>FontForm.cs</DependentUpon>

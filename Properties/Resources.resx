@@ -117,31 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="menuMain.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <metadata name="opnLfd.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>129, 17</value>
-  </metadata>
-  <metadata name="savResource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>221, 17</value>
-  </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        AAABAAEAICAQAAAAAADoAgAAFgAAACgAAAAgAAAAQAAAAAEABAAAAAAAAAIAAAAAAAAAAAAAEAAAABAA
-        AAAAAAAAQEBAAACAAAAAgIAAgAAAAIAAgACAgAAAX19fAHBwcAAAAP8AAP8AAAD//wD/AAAA/wD/AP//
-        AAD///8AAAAAAAAAAId4AAAAAAAAAAAAAAAAAAB3dwAAAAAAAAAAAAAAAAAAd3cAAAAAAAAAAAAAAAAB
-        CHd3gBAAAAAAAAAAAAABAAdwB3AAEAAAAAAAAAAAAAAHcAdwAAAAAAAAAAAAAAAQB3AHcAEAAAAAAAAA
-        AAAAAAdwB3AAAAAAAAAAAAAAAAB3cAd3AAAAAAAAAAAQAACHd3AHd3gAAAEAAAAAABAId3AAAAd3gAEA
-        AAAAAQAAB3cAAAAAd3AAABAAAAAAAHdwAAAAAAd3AAAAAAAId3d3AAAQAQAAd3d3gACHd3d3dwABAAAQ
-        AHd3d3d4d3cAAAAAAAAAAAAAAAB3d3d3AAAAAAAAAAAAAAAAd3eHd3d3dwABAAAQAHd3d3d4AAh3d3cA
-        ABABAAB3d3eAAAAAAAB3cAAAAAAHdwAAAAAAAQAAB3cAAAAAd3AAABAAAAAAEAh3cAAAB3eAAQAAAAAA
-        EAAAh3dwB3d4AAABAAAAAAAAAAB3cAd3AAAAAAAAAAAAAAAAB3AHcAAAAAAAAAAAAAAAEAdwB3ABAAAA
-        AAAAAAAAAAAHcAdwAAAAAAAAAAAAAAEAB3AHcAAQAAAAAAAAAAAAAQh3d4AQAAAAAAAAAAAAAAAAd3cA
-        AAAAAAAAAAAAAAAAAHd3AAAAAAAAAAAAAAAAAACHeAAAAAAAAAD//D////w////8P///6Bf//4mR//8J
-        kP/+GZh//HmeP/jxjx/xwYOP8Yfhj+OP8cf/H/j/4Dw8BwA4HAAP+B/wD/gf8AA4HADgPDwH/x/4/+OP
-        8cfxh+GP8cGDj/jxjx/8eZ4//hmYf/8JkP//iZH//+gX///8P////D////w//w==
-</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="launch" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\launch.pltt;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="l_bg_bay" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\l-bg-bay.pltt;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="standard" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\standard.pltt;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="toddesk" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\toddesk.pltt;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

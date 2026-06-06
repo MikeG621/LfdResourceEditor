@@ -4,10 +4,11 @@
  * Licensed under the MPL v2.0 or later.
  * 
  * Full notice in Program.cs
- * Version: 0.1
+ * Version: 0.1+
  */
 
 /* CHANGELOG
+ * [NEW] resource export
  * v0.1, 260517
  * - created
  */
@@ -151,7 +152,8 @@ namespace Idmr.LfdResourceEditor
 					resFrm.Show();
 					break;
 				case Resource.ResourceType.Delt:
-					// TODO: DELT
+					resFrm = new DeltForm(_lfd, (Delt)res) { MdiParent = this };
+					resFrm.Show();
 					break;
 				case Resource.ResourceType.Font:
 					resFrm = new FontForm(_lfd, (LfdReader.Font)res) { MdiParent = this };
@@ -208,6 +210,25 @@ namespace Idmr.LfdResourceEditor
 			_isLoading = false;
 		}
 		private void miFileQuit_Click(object sender, EventArgs e) => Close();
+
+		private void miResourceClose_Click(object sender, EventArgs e) => ActiveMdiChild.Close();
+		private void miResourceExport_Click(object sender, EventArgs e)
+		{
+			if (ActiveMdiChild == null) return;
+
+			var res = (ActiveMdiChild as ResourceForm).Resource;
+			savResource.DefaultExt = res.Type.ToString().ToLower();
+			savResource.FileName = $"{Path.GetFileNameWithoutExtension(_lfd.FileName)}-{res.Name}";
+			var response = savResource.ShowDialog();
+			if (response != DialogResult.OK) return;
+
+			using ( FileStream fs = File.OpenWrite(savResource.FileName) )
+			{
+				BinaryWriter bw = new BinaryWriter(fs);
+				bw.Write(res.RawData);
+				fs.Close();
+			}
+		}
 
 		private void miLfdClose_Click(object sender, EventArgs e)
 		{
