@@ -83,6 +83,26 @@ namespace Idmr.LfdResourceEditor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] ls1_gry0 {
+            get {
+                object obj = ResourceManager.GetObject("ls1_gry0", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] ls1_red1 {
+            get {
+                object obj = ResourceManager.GetObject("ls1_red1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] standard {
             get {
                 object obj = ResourceManager.GetObject("standard", resourceCulture);

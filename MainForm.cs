@@ -152,7 +152,7 @@ namespace Idmr.LfdResourceEditor
 					resFrm.Show();
 					break;
 				case Resource.ResourceType.Delt:
-					resFrm = new DeltForm(_lfd, (Delt)res) { MdiParent = this };
+					resFrm = new DeltForm(_lfd, (Delt)res, this);
 					resFrm.Show();
 					break;
 				case Resource.ResourceType.Font:
@@ -211,7 +211,7 @@ namespace Idmr.LfdResourceEditor
 		}
 		private void miFileQuit_Click(object sender, EventArgs e) => Close();
 
-		private void miResourceClose_Click(object sender, EventArgs e) => ActiveMdiChild.Close();
+		private void miResourceClose_Click(object sender, EventArgs e) => ActiveMdiChild?.Close();
 		private void miResourceExport_Click(object sender, EventArgs e)
 		{
 			if (ActiveMdiChild == null) return;

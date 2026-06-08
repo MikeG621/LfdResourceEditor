@@ -121,6 +121,12 @@
   <data name="launch" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\launch.pltt;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="ls1_gry0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ls1-gry0.pltt;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ls1_red1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ls1-red1.pltt;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="l_bg_bay" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\l-bg-bay.pltt;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

@@ -146,9 +146,13 @@
     <EmbeddedResource Include="ResourceForm.resx">
       <DependentUpon>ResourceForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="l-bg-bay.pltt" />
+    <None Include="launch.pltt" />
     <None Include="LICENSE.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="ls1-gry0.pltt" />
+    <None Include="ls1-red1.pltt" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
