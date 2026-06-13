@@ -45,6 +45,7 @@ namespace Idmr.LfdResourceEditor
 			numWidth.Value = _wrk.Width;
 			numHeight.Value = _wrk.Height;
 			chkEdit.Enabled = !readOnly;
+			cboTransparent.SelectedIndex = 0;
 			loadPltts();
 			_isLoading = false;
 		}
@@ -110,36 +111,6 @@ namespace Idmr.LfdResourceEditor
 			lstPltts.DataSource = _pltts;
 			lstPltts.DisplayMember = "Display";
 			lstPltts.ValueMember = "Pltt";
-			/*foreach (var item in selected)
-			{
-				if (_pltts.Contains(item))
-				{
-					lstPltts.SelectedItems.Add(item);
-					continue;
-				}
-
-				if (item.Display.StartsWith("*"))
-				{
-					// the refs for the embedded get recreated so they won't match
-					// match embedded, or if the real one gets loaded
-					for (int i = 0; i < _pltts.Count; i++)
-						if (item.Display == _pltts[i].Display || item.Display.Substring(1) == _pltts[i].Display)
-						{
-							lstPltts.SelectedIndices.Add(i);
-							break;
-						}
-				}
-				else
-				{
-					// match when the real one is closed, switch to embedded
-					for (int i = 0; i < _pltts.Count; i++)
-						if (_pltts[i].Display.StartsWith("*") && _pltts[i].Display.Substring(1) == item.Display)
-						{
-							lstPltts.SelectedIndices.Add(i);
-							break;
-						}
-				}
-			}*/
 			_isLoading = loading;
 		}
 
@@ -147,8 +118,19 @@ namespace Idmr.LfdResourceEditor
 		{
 			_origPalette.Entries.CopyTo(_palette.Entries, 0);
 			foreach (PlttEntry item in lstApplied.Items) applyPltt(item.Pltt);
+			if (cboTransparent.SelectedIndex == 0) _palette.Entries[0] = Color.Transparent;
+			else if (cboTransparent.SelectedIndex == 2) _palette.Entries[0] = Color.Fuchsia;
+			else if (cboTransparent.SelectedIndex == 3) _palette.Entries[0] = Color.Blue;
 			_wrk.Palette = _palette;
 			pctImage.Invalidate();
+		}
+
+		void shiftApplied(int direction)
+		{
+			int ind = lstApplied.SelectedIndex;
+			(lstApplied.Items[ind], lstApplied.Items[ind + direction]) = (lstApplied.Items[ind + direction], lstApplied.Items[ind]);
+			lstApplied.SelectedIndex = ind + direction;
+			refresh();
 		}
 
 		readonly struct PlttEntry
@@ -168,20 +150,8 @@ namespace Idmr.LfdResourceEditor
 			public override string ToString() => Display;
 		}
 
-		private void btnUp_Click(object sender, EventArgs e)
-		{
-			// TODO: move up
-			if (lstApplied.SelectedIndex == 0) return;
-
-			refresh();
-		}
-		private void btnDown_Click(object sender, EventArgs e)
-		{
-			// TODO: move down
-			if (lstApplied.SelectedIndex == lstApplied.Items.Count - 1) return;
-
-			refresh();
-		}
+		private void btnUp_Click(object sender, EventArgs e) { if (lstApplied.SelectedIndex > 0) shiftApplied(-1); }
+		private void btnDown_Click(object sender, EventArgs e) { if (lstApplied.SelectedIndex < lstApplied.Items.Count - 1) shiftApplied(1); }
 		private void btnReload_Click(object sender, EventArgs e) => loadPltts();
 		private void btnAdd_Click(object sender, EventArgs e)
 		{
@@ -198,8 +168,9 @@ namespace Idmr.LfdResourceEditor
 			refresh();
 		}
 
+		private void cboTransparent_SelectedIndexChanged(object sender, EventArgs e) => refresh();
+
 		private void lstApplied_DoubleClick(object sender, EventArgs e) => btnRemove_Click(sender, e);
 		private void lstPltts_DoubleClick(object sender, EventArgs e) => btnAdd_Click(sender, e);
-
 	}
 }

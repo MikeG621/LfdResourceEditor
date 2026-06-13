@@ -47,6 +47,8 @@
 			this.lstApplied = new System.Windows.Forms.ListBox();
 			this.label6 = new System.Windows.Forms.Label();
 			this.btnRemove = new System.Windows.Forms.Button();
+			this.label7 = new System.Windows.Forms.Label();
+			this.cboTransparent = new System.Windows.Forms.ComboBox();
 			((System.ComponentModel.ISupportInitialize)(this.pctImage)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numHeight)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numWidth)).BeginInit();
@@ -56,11 +58,12 @@
 			// 
 			// btnUpdate
 			// 
-			this.btnUpdate.Location = new System.Drawing.Point(12, 469);
+			this.btnUpdate.Location = new System.Drawing.Point(715, 498);
 			this.btnUpdate.TabIndex = 20;
 			// 
 			// pctImage
 			// 
+			this.pctImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.pctImage.Location = new System.Drawing.Point(150, 12);
 			this.pctImage.Name = "pctImage";
 			this.pctImage.Size = new System.Drawing.Size(640, 480);
@@ -271,10 +274,36 @@
 			this.btnRemove.UseVisualStyleBackColor = true;
 			this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
 			// 
+			// label7
+			// 
+			this.label7.AutoSize = true;
+			this.label7.Location = new System.Drawing.Point(147, 503);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(75, 13);
+			this.label7.TabIndex = 24;
+			this.label7.Text = "Transparency:";
+			// 
+			// cboTransparent
+			// 
+			this.cboTransparent.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cboTransparent.FormattingEnabled = true;
+			this.cboTransparent.Items.AddRange(new object[] {
+            "Hide",
+            "Show",
+            "Show Fuschia",
+            "Show Blue"});
+			this.cboTransparent.Location = new System.Drawing.Point(228, 500);
+			this.cboTransparent.Name = "cboTransparent";
+			this.cboTransparent.Size = new System.Drawing.Size(95, 21);
+			this.cboTransparent.TabIndex = 25;
+			this.cboTransparent.SelectedIndexChanged += new System.EventHandler(this.cboTransparent_SelectedIndexChanged);
+			// 
 			// DeltForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-			this.ClientSize = new System.Drawing.Size(802, 499);
+			this.ClientSize = new System.Drawing.Size(802, 528);
+			this.Controls.Add(this.cboTransparent);
+			this.Controls.Add(this.label7);
 			this.Controls.Add(this.label6);
 			this.Controls.Add(this.lstApplied);
 			this.Controls.Add(this.btnRemove);
@@ -315,6 +344,8 @@
 			this.Controls.SetChildIndex(this.btnRemove, 0);
 			this.Controls.SetChildIndex(this.lstApplied, 0);
 			this.Controls.SetChildIndex(this.label6, 0);
+			this.Controls.SetChildIndex(this.label7, 0);
+			this.Controls.SetChildIndex(this.cboTransparent, 0);
 			((System.ComponentModel.ISupportInitialize)(this.pctImage)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numHeight)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numWidth)).EndInit();
@@ -346,5 +377,7 @@
 		private System.Windows.Forms.ListBox lstApplied;
 		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.Button btnRemove;
+		private System.Windows.Forms.Label label7;
+		private System.Windows.Forms.ComboBox cboTransparent;
 	}
 }
