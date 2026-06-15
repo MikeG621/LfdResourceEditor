@@ -17,6 +17,7 @@ using Idmr.LfdReader;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
@@ -225,6 +226,10 @@ namespace Idmr.LfdResourceEditor
 			using ( FileStream fs = File.OpenWrite(savResource.FileName) )
 			{
 				BinaryWriter bw = new BinaryWriter(fs);
+				bw.Write(res.ToString().ToCharArray());
+				bw.Write((long)0);
+				fs.Position = Resource.LengthOffset;
+				bw.Write(res.Length);
 				bw.Write(res.RawData);
 				fs.Close();
 			}

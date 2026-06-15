@@ -7,19 +7,6 @@
 		/// </summary>
 		private System.ComponentModel.IContainer components = null;
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing && (components != null))
-			{
-				components.Dispose();
-			}
-			base.Dispose(disposing);
-		}
-
 		#region Windows Form Designer generated code
 
 		/// <summary>
@@ -49,6 +36,14 @@
 			this.btnRemove = new System.Windows.Forms.Button();
 			this.label7 = new System.Windows.Forms.Label();
 			this.cboTransparent = new System.Windows.Forms.ComboBox();
+			this.optZoom1 = new System.Windows.Forms.RadioButton();
+			this.label8 = new System.Windows.Forms.Label();
+			this.optZoom2 = new System.Windows.Forms.RadioButton();
+			this.optZoom4 = new System.Windows.Forms.RadioButton();
+			this.btnExport = new System.Windows.Forms.Button();
+			this.btnImport = new System.Windows.Forms.Button();
+			this.opnImage = new System.Windows.Forms.OpenFileDialog();
+			this.savImage = new System.Windows.Forms.SaveFileDialog();
 			((System.ComponentModel.ISupportInitialize)(this.pctImage)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numHeight)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numWidth)).BeginInit();
@@ -69,6 +64,7 @@
 			this.pctImage.Size = new System.Drawing.Size(640, 480);
 			this.pctImage.TabIndex = 1;
 			this.pctImage.TabStop = false;
+			this.pctImage.Paint += new System.Windows.Forms.PaintEventHandler(this.pctImage_Paint);
 			// 
 			// label1
 			// 
@@ -194,7 +190,7 @@
 			this.chkEdit.Name = "chkEdit";
 			this.chkEdit.Size = new System.Drawing.Size(44, 17);
 			this.chkEdit.TabIndex = 5;
-			this.chkEdit.Text = "Edit";
+			this.chkEdit.Text = "&Edit";
 			this.chkEdit.UseVisualStyleBackColor = true;
 			// 
 			// lstPltts
@@ -252,7 +248,7 @@
 			this.lstApplied.Location = new System.Drawing.Point(12, 338);
 			this.lstApplied.Name = "lstApplied";
 			this.lstApplied.Size = new System.Drawing.Size(120, 69);
-			this.lstApplied.TabIndex = 22;
+			this.lstApplied.TabIndex = 9;
 			this.lstApplied.DoubleClick += new System.EventHandler(this.lstApplied_DoubleClick);
 			// 
 			// label6
@@ -269,7 +265,7 @@
 			this.btnRemove.Location = new System.Drawing.Point(57, 440);
 			this.btnRemove.Name = "btnRemove";
 			this.btnRemove.Size = new System.Drawing.Size(75, 23);
-			this.btnRemove.TabIndex = 8;
+			this.btnRemove.TabIndex = 12;
 			this.btnRemove.Text = "Remo&ve";
 			this.btnRemove.UseVisualStyleBackColor = true;
 			this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
@@ -295,13 +291,93 @@
 			this.cboTransparent.Location = new System.Drawing.Point(228, 500);
 			this.cboTransparent.Name = "cboTransparent";
 			this.cboTransparent.Size = new System.Drawing.Size(95, 21);
-			this.cboTransparent.TabIndex = 25;
+			this.cboTransparent.TabIndex = 13;
 			this.cboTransparent.SelectedIndexChanged += new System.EventHandler(this.cboTransparent_SelectedIndexChanged);
+			// 
+			// optZoom1
+			// 
+			this.optZoom1.AutoSize = true;
+			this.optZoom1.Checked = true;
+			this.optZoom1.Location = new System.Drawing.Point(372, 501);
+			this.optZoom1.Name = "optZoom1";
+			this.optZoom1.Size = new System.Drawing.Size(36, 17);
+			this.optZoom1.TabIndex = 14;
+			this.optZoom1.TabStop = true;
+			this.optZoom1.Text = "1x";
+			this.optZoom1.UseVisualStyleBackColor = true;
+			this.optZoom1.CheckedChanged += new System.EventHandler(this.optZoom_CheckedChanged);
+			// 
+			// label8
+			// 
+			this.label8.AutoSize = true;
+			this.label8.Location = new System.Drawing.Point(329, 503);
+			this.label8.Name = "label8";
+			this.label8.Size = new System.Drawing.Size(37, 13);
+			this.label8.TabIndex = 27;
+			this.label8.Text = "Zoom:";
+			// 
+			// optZoom2
+			// 
+			this.optZoom2.AutoSize = true;
+			this.optZoom2.Location = new System.Drawing.Point(414, 501);
+			this.optZoom2.Name = "optZoom2";
+			this.optZoom2.Size = new System.Drawing.Size(36, 17);
+			this.optZoom2.TabIndex = 15;
+			this.optZoom2.Text = "2x";
+			this.optZoom2.UseVisualStyleBackColor = true;
+			this.optZoom2.CheckedChanged += new System.EventHandler(this.optZoom_CheckedChanged);
+			// 
+			// optZoom4
+			// 
+			this.optZoom4.AutoSize = true;
+			this.optZoom4.Location = new System.Drawing.Point(456, 501);
+			this.optZoom4.Name = "optZoom4";
+			this.optZoom4.Size = new System.Drawing.Size(36, 17);
+			this.optZoom4.TabIndex = 16;
+			this.optZoom4.Text = "4x";
+			this.optZoom4.UseVisualStyleBackColor = true;
+			this.optZoom4.CheckedChanged += new System.EventHandler(this.optZoom_CheckedChanged);
+			// 
+			// btnExport
+			// 
+			this.btnExport.Location = new System.Drawing.Point(634, 498);
+			this.btnExport.Name = "btnExport";
+			this.btnExport.Size = new System.Drawing.Size(75, 23);
+			this.btnExport.TabIndex = 18;
+			this.btnExport.Text = "E&xport";
+			this.btnExport.UseVisualStyleBackColor = true;
+			this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
+			// 
+			// btnImport
+			// 
+			this.btnImport.Location = new System.Drawing.Point(553, 498);
+			this.btnImport.Name = "btnImport";
+			this.btnImport.Size = new System.Drawing.Size(75, 23);
+			this.btnImport.TabIndex = 17;
+			this.btnImport.Text = "&Import";
+			this.btnImport.UseVisualStyleBackColor = true;
+			this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
+			// 
+			// opnImage
+			// 
+			this.opnImage.DefaultExt = "bmp";
+			this.opnImage.Filter = "Bitmaps|*.bmp|All files|*.*";
+			// 
+			// savImage
+			// 
+			this.savImage.DefaultExt = "bmp";
+			this.savImage.Filter = "Bitmaps|*.bmp|All files|*.*";
 			// 
 			// DeltForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.ClientSize = new System.Drawing.Size(802, 528);
+			this.Controls.Add(this.btnImport);
+			this.Controls.Add(this.btnExport);
+			this.Controls.Add(this.label8);
+			this.Controls.Add(this.optZoom4);
+			this.Controls.Add(this.optZoom2);
+			this.Controls.Add(this.optZoom1);
 			this.Controls.Add(this.cboTransparent);
 			this.Controls.Add(this.label7);
 			this.Controls.Add(this.label6);
@@ -346,6 +422,12 @@
 			this.Controls.SetChildIndex(this.label6, 0);
 			this.Controls.SetChildIndex(this.label7, 0);
 			this.Controls.SetChildIndex(this.cboTransparent, 0);
+			this.Controls.SetChildIndex(this.optZoom1, 0);
+			this.Controls.SetChildIndex(this.optZoom2, 0);
+			this.Controls.SetChildIndex(this.optZoom4, 0);
+			this.Controls.SetChildIndex(this.label8, 0);
+			this.Controls.SetChildIndex(this.btnExport, 0);
+			this.Controls.SetChildIndex(this.btnImport, 0);
 			((System.ComponentModel.ISupportInitialize)(this.pctImage)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numHeight)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numWidth)).EndInit();
@@ -379,5 +461,13 @@
 		private System.Windows.Forms.Button btnRemove;
 		private System.Windows.Forms.Label label7;
 		private System.Windows.Forms.ComboBox cboTransparent;
+		private System.Windows.Forms.RadioButton optZoom1;
+		private System.Windows.Forms.Label label8;
+		private System.Windows.Forms.RadioButton optZoom2;
+		private System.Windows.Forms.RadioButton optZoom4;
+		private System.Windows.Forms.Button btnExport;
+		private System.Windows.Forms.Button btnImport;
+		private System.Windows.Forms.OpenFileDialog opnImage;
+		private System.Windows.Forms.SaveFileDialog savImage;
 	}
 }

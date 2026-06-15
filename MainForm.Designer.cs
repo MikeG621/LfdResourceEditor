@@ -37,6 +37,7 @@
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.miFileQuit = new System.Windows.Forms.ToolStripMenuItem();
 			this.miResource = new System.Windows.Forms.ToolStripMenuItem();
+			this.miResourceExport = new System.Windows.Forms.ToolStripMenuItem();
 			this.miResourceClose = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.miLfd = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,7 +48,6 @@
 			this.opnLfd = new System.Windows.Forms.OpenFileDialog();
 			this.lstResources = new System.Windows.Forms.ListBox();
 			this.panel1 = new System.Windows.Forms.Panel();
-			this.miResourceExport = new System.Windows.Forms.ToolStripMenuItem();
 			this.savResource = new System.Windows.Forms.SaveFileDialog();
 			this.menuMain.SuspendLayout();
 			this.panel1.SuspendLayout();
@@ -82,7 +82,7 @@
 			// 
 			this.miFileOpen.Name = "miFileOpen";
 			this.miFileOpen.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-			this.miFileOpen.Size = new System.Drawing.Size(180, 22);
+			this.miFileOpen.Size = new System.Drawing.Size(146, 22);
 			this.miFileOpen.Text = "&Open";
 			this.miFileOpen.Click += new System.EventHandler(this.miFileOpen_Click);
 			// 
@@ -91,7 +91,7 @@
 			this.miFileSave.Enabled = false;
 			this.miFileSave.Name = "miFileSave";
 			this.miFileSave.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-			this.miFileSave.Size = new System.Drawing.Size(180, 22);
+			this.miFileSave.Size = new System.Drawing.Size(146, 22);
 			this.miFileSave.Text = "&Save";
 			this.miFileSave.Click += new System.EventHandler(this.miFileSave_Click);
 			// 
@@ -99,20 +99,20 @@
 			// 
 			this.miFileSaveAll.Enabled = false;
 			this.miFileSaveAll.Name = "miFileSaveAll";
-			this.miFileSaveAll.Size = new System.Drawing.Size(180, 22);
+			this.miFileSaveAll.Size = new System.Drawing.Size(146, 22);
 			this.miFileSaveAll.Text = "Save &All";
 			this.miFileSaveAll.Click += new System.EventHandler(this.miFileSaveAll_Click);
 			// 
 			// toolStripSeparator1
 			// 
 			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+			this.toolStripSeparator1.Size = new System.Drawing.Size(143, 6);
 			// 
 			// miFileQuit
 			// 
 			this.miFileQuit.Name = "miFileQuit";
 			this.miFileQuit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
-			this.miFileQuit.Size = new System.Drawing.Size(180, 22);
+			this.miFileQuit.Size = new System.Drawing.Size(146, 22);
 			this.miFileQuit.Text = "&Quit";
 			this.miFileQuit.Click += new System.EventHandler(this.miFileQuit_Click);
 			// 
@@ -125,6 +125,13 @@
 			this.miResource.Name = "miResource";
 			this.miResource.Size = new System.Drawing.Size(67, 20);
 			this.miResource.Text = "&Resource";
+			// 
+			// miResourceExport
+			// 
+			this.miResourceExport.Name = "miResourceExport";
+			this.miResourceExport.Size = new System.Drawing.Size(180, 22);
+			this.miResourceExport.Text = "&Export raw";
+			this.miResourceExport.Click += new System.EventHandler(this.miResourceExport_Click);
 			// 
 			// miResourceClose
 			// 
@@ -201,13 +208,6 @@
 			this.panel1.Name = "panel1";
 			this.panel1.Size = new System.Drawing.Size(120, 594);
 			this.panel1.TabIndex = 8;
-			// 
-			// miResourceExport
-			// 
-			this.miResourceExport.Name = "miResourceExport";
-			this.miResourceExport.Size = new System.Drawing.Size(180, 22);
-			this.miResourceExport.Text = "&Export";
-			this.miResourceExport.Click += new System.EventHandler(this.miResourceExport_Click);
 			// 
 			// savResource
 			// 

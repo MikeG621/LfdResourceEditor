@@ -18,6 +18,8 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
+using System.Windows.Forms;
 
 namespace Idmr.LfdResourceEditor
 {
@@ -39,15 +41,31 @@ namespace Idmr.LfdResourceEditor
 			_palette = new Bitmap(1, 1, PixelFormat.Format8bppIndexed).Palette;
 			_origPalette = new Bitmap(1, 1, PixelFormat.Format8bppIndexed).Palette;
 			_wrk.Palette = _palette;
-			pctImage.Image = _wrk.Image;
 			numLeft.Value = _wrk.Left;
 			numTop.Value = _wrk.Top;
 			numWidth.Value = _wrk.Width;
 			numHeight.Value = _wrk.Height;
 			chkEdit.Enabled = !readOnly;
 			cboTransparent.SelectedIndex = 0;
+			if (_wrk.Width > 160 || _wrk.Height > 120) optZoom4.Enabled = false;
+			if (_wrk.Width > 320 || _wrk.Height > 240) optZoom2.Enabled = false;
 			loadPltts();
 			_isLoading = false;
+		}
+
+		/// <summary>Clean up any resources being used.</summary>
+		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+		protected override void Dispose(bool disposing)
+		{
+			// TODO: Lfds should be disposable.
+			if (disposing)
+			{
+				components?.Dispose();
+				_pltts.Clear();
+				_wrk.Image.Dispose();
+			}
+			//_wrk.Image = null;
+			base.Dispose(disposing);
 		}
 
 		/// <summary>Push the working copy to <see cref="ResourceForm.Resource"/>.</summary>
@@ -150,9 +168,6 @@ namespace Idmr.LfdResourceEditor
 			public override string ToString() => Display;
 		}
 
-		private void btnUp_Click(object sender, EventArgs e) { if (lstApplied.SelectedIndex > 0) shiftApplied(-1); }
-		private void btnDown_Click(object sender, EventArgs e) { if (lstApplied.SelectedIndex < lstApplied.Items.Count - 1) shiftApplied(1); }
-		private void btnReload_Click(object sender, EventArgs e) => loadPltts();
 		private void btnAdd_Click(object sender, EventArgs e)
 		{
 			if (lstPltts.SelectedIndex == -1) return;
@@ -160,6 +175,24 @@ namespace Idmr.LfdResourceEditor
 			lstApplied.Items.Add(lstPltts.SelectedItem);
 			refresh();
 		}
+		private void btnDown_Click(object sender, EventArgs e) { if (lstApplied.SelectedIndex < lstApplied.Items.Count - 1) shiftApplied(1); }
+		private void btnExport_Click(object sender, EventArgs e)
+		{
+			savImage.FileName = $"{Path.GetFileNameWithoutExtension(_lfd.FileName)}-{_wrk.Name}";
+			var response = savImage.ShowDialog();
+			if (response != DialogResult.OK) return;
+
+			_wrk.Image.Save(savImage.FileName, ImageFormat.Bmp);
+			// Reminder: the exported palette may not match exactly
+		}
+		private void btnImport_Click(object sender, EventArgs e)
+		{
+			var response = opnImage.ShowDialog();
+			if (response != DialogResult.OK) return;
+
+
+		}
+		private void btnReload_Click(object sender, EventArgs e) => loadPltts();
 		private void btnRemove_Click(object sender, EventArgs e)
 		{
 			if (lstApplied.SelectedIndex == -1) return;
@@ -167,10 +200,26 @@ namespace Idmr.LfdResourceEditor
 			lstApplied.Items.Remove(lstApplied.SelectedItem);
 			refresh();
 		}
+		private void btnUp_Click(object sender, EventArgs e) { if (lstApplied.SelectedIndex > 0) shiftApplied(-1); }
 
 		private void cboTransparent_SelectedIndexChanged(object sender, EventArgs e) => refresh();
 
 		private void lstApplied_DoubleClick(object sender, EventArgs e) => btnRemove_Click(sender, e);
 		private void lstPltts_DoubleClick(object sender, EventArgs e) => btnAdd_Click(sender, e);
+
+		private void optZoom_CheckedChanged(object sender, EventArgs e) => pctImage.Invalidate();
+
+		private void pctImage_Paint(object sender, PaintEventArgs e)
+		{
+			var g = e.Graphics;
+			g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+			g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+			int scale = 1;
+			if (optZoom2.Checked) scale = 2;
+			else if (optZoom4.Checked) scale = 4;
+			int left = (pctImage.Width - _wrk.Width * scale) / 2;
+			int top = (pctImage.Height - _wrk.Height * scale) / 2;
+			g.DrawImage(_wrk.Image, left, top, _wrk.Width * scale, _wrk.Height * scale);
+		}
 	}
 }

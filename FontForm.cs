@@ -126,6 +126,7 @@ namespace Idmr.LfdResourceEditor
 
 		private void btnExport_Click(object sender, EventArgs e)
 		{
+			// TODO: can remove this button due to MainForm.miResourceExport
 			savFont.FileName = $"{Path.GetFileNameWithoutExtension(_lfd.FileName)}-{_font.Name}";
 			var response = savFont.ShowDialog();
 			if (response != DialogResult.OK) return;
