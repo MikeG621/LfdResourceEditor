@@ -12,6 +12,7 @@
  * - created
  */
 
+using Idmr.Common;
 using Idmr.LfdReader;
 using Idmr.LfdResourceEditor.Properties;
 using System;
@@ -190,7 +191,14 @@ namespace Idmr.LfdResourceEditor
 			var response = opnImage.ShowDialog();
 			if (response != DialogResult.OK) return;
 
-
+			try
+			{
+				_wrk.Image = new Bitmap(opnImage.FileName) { Palette = _palette };
+				numWidth.Value = _wrk.Image.Width;
+				numHeight.Value = _wrk.Image.Height;
+				pctImage.Invalidate();
+			}
+			catch (Exception x) { MessageBox.Show("Import Error", x.Message, MessageBoxButtons.OK, MessageBoxIcon.Error); }
 		}
 		private void btnReload_Click(object sender, EventArgs e) => loadPltts();
 		private void btnRemove_Click(object sender, EventArgs e)
