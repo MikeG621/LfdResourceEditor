@@ -12,7 +12,6 @@
  * - created
  */
 
-using Idmr.Common;
 using Idmr.LfdReader;
 using Idmr.LfdResourceEditor.Properties;
 using System;
@@ -55,17 +54,16 @@ namespace Idmr.LfdResourceEditor
 		}
 
 		/// <summary>Clean up any resources being used.</summary>
-		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+		/// <param name="disposing"><see langword="true"/> if managed resources should be disposed; otherwise, <see langword="false"/>.</param>
 		protected override void Dispose(bool disposing)
 		{
-			// TODO: Lfds should be disposable.
 			if (disposing)
 			{
 				components?.Dispose();
 				_pltts.Clear();
-				_wrk.Image.Dispose();
+				_wrk.Dispose();
 			}
-			//_wrk.Image = null;
+			_working = null;
 			base.Dispose(disposing);
 		}
 

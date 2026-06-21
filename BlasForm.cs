@@ -34,6 +34,19 @@ namespace Idmr.LfdResourceEditor
 			btnImport.Enabled = !readOnly;
 		}
 
+		/// <summary>Clean up any resources being used.</summary>
+		/// <param name="disposing"><see langword="true"/> if managed resources should be disposed; otherwise, <see langword="false"/>.</param>
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
+				components?.Dispose();
+				_wrk.Dispose();
+			}
+			_working = null;
+			base.Dispose(disposing);
+		}
+
 		// this gets us the required function to play .WAV
 		[DllImport("winmm.dll", SetLastError = true, CallingConvention = CallingConvention.Winapi)]
 		static extern bool PlaySound(byte[] b_ary, IntPtr ptr, SoundFlags sf);      // from memory

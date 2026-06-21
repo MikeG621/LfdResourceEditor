@@ -60,6 +60,19 @@ namespace Idmr.LfdResourceEditor
 			_isLoading = false;
 		}
 
+		/// <summary>Clean up any resources being used.</summary>
+		/// <param name="disposing"><see langword="true"/> if managed resources should be disposed; otherwise, <see langword="false"/>.</param>
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
+				components?.Dispose();
+				_wrk.Dispose();
+			}
+			_working = null;
+			base.Dispose(disposing);
+		}
+
 		protected override void updateLfd()
 		{
 			_wrk.EncodeResource();

@@ -7,19 +7,6 @@
 		/// </summary>
 		private System.ComponentModel.IContainer components = null;
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing && (components != null))
-			{
-				components.Dispose();
-			}
-			base.Dispose(disposing);
-		}
-
 		#region Windows Form Designer generated code
 
 		/// <summary>
@@ -46,9 +33,7 @@
 			this.lblAscii = new System.Windows.Forms.Label();
 			this.lblChar = new System.Windows.Forms.Label();
 			this.btnImport = new System.Windows.Forms.Button();
-			this.btnExport = new System.Windows.Forms.Button();
 			this.opnFont = new System.Windows.Forms.OpenFileDialog();
-			this.savFont = new System.Windows.Forms.SaveFileDialog();
 			this.chkEdit = new System.Windows.Forms.CheckBox();
 			this.vsbCharMap = new System.Windows.Forms.VScrollBar();
 			this.label1 = new System.Windows.Forms.Label();
@@ -286,27 +271,11 @@
 			this.btnImport.UseVisualStyleBackColor = true;
 			this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
 			// 
-			// btnExport
-			// 
-			this.btnExport.Location = new System.Drawing.Point(448, 177);
-			this.btnExport.Name = "btnExport";
-			this.btnExport.Size = new System.Drawing.Size(86, 23);
-			this.btnExport.TabIndex = 14;
-			this.btnExport.Text = "E&xport FONT";
-			this.btnExport.UseVisualStyleBackColor = true;
-			this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
-			// 
 			// opnFont
 			// 
 			this.opnFont.DefaultExt = "font";
 			this.opnFont.Filter = "LFD FONT files|*.font|All files|*.*";
 			this.opnFont.Title = "Import FONT file";
-			// 
-			// savFont
-			// 
-			this.savFont.DefaultExt = "font";
-			this.savFont.Filter = "LFD FONT files|*.font|All files|*.*";
-			this.savFont.Title = "Exporrt FONT file";
 			// 
 			// chkEdit
 			// 
@@ -329,7 +298,7 @@
 			// 
 			// label1
 			// 
-			this.label1.Location = new System.Drawing.Point(540, 177);
+			this.label1.Location = new System.Drawing.Point(448, 174);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(178, 28);
 			this.label1.TabIndex = 17;
@@ -383,7 +352,6 @@
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.vsbCharMap);
 			this.Controls.Add(this.chkEdit);
-			this.Controls.Add(this.btnExport);
 			this.Controls.Add(this.btnImport);
 			this.Controls.Add(this.lblChar);
 			this.Controls.Add(this.lblAscii);
@@ -422,7 +390,6 @@
 			this.Controls.SetChildIndex(this.lblAscii, 0);
 			this.Controls.SetChildIndex(this.lblChar, 0);
 			this.Controls.SetChildIndex(this.btnImport, 0);
-			this.Controls.SetChildIndex(this.btnExport, 0);
 			this.Controls.SetChildIndex(this.chkEdit, 0);
 			this.Controls.SetChildIndex(this.vsbCharMap, 0);
 			this.Controls.SetChildIndex(this.label1, 0);
@@ -460,9 +427,7 @@
 		private System.Windows.Forms.Label lblAscii;
 		private System.Windows.Forms.Label lblChar;
 		private System.Windows.Forms.Button btnImport;
-		private System.Windows.Forms.Button btnExport;
 		private System.Windows.Forms.OpenFileDialog opnFont;
-		private System.Windows.Forms.SaveFileDialog savFont;
 		private System.Windows.Forms.CheckBox chkEdit;
 		private System.Windows.Forms.VScrollBar vsbCharMap;
 		private System.Windows.Forms.Label label1;

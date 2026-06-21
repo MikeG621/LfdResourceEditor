@@ -21,7 +21,6 @@ namespace Idmr.LfdResourceEditor
 {
 	public partial class TextForm : ResourceForm
 	{
-		string _string = "";
 		int _activeIndex = -1;
 		Text _wrk => (Text)_working;
 		Text _text => (Text)_resource;
@@ -32,7 +31,20 @@ namespace Idmr.LfdResourceEditor
 			_working = new Text();
 			_wrk.DecodeResource(_text.RawData, false);
 			txtString.ReadOnly = _isReadOnly;
-			foreach (string s in _wrk.Strings) lstStrings.Items.Add(s.Length > 12 ? s.Substring(0, 12) + "..." : s);
+			foreach (var s in _wrk.Strings) lstStrings.Items.Add(s.Value.Length > 12 ? s.Value.Substring(0, 12) + "..." : s.Value);
+		}
+
+		/// <summary>Clean up any resources being used.</summary>
+		/// <param name="disposing"><see langword="true"/> if managed resources should be disposed; otherwise, <see langword="false"/>.</param>
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
+				components?.Dispose();
+				_wrk.Dispose();
+			}
+			_working = null;
+			base.Dispose(disposing);
 		}
 
 		protected override void updateLfd()
@@ -40,7 +52,7 @@ namespace Idmr.LfdResourceEditor
 			if (lblNewLength.Visible)
 			{
 				lblNewLength.Visible = false;
-				lblOriginalLength.Text = $"Original length: {_string.Length}";
+				lblOriginalLength.Text = $"Original length: {_activeString.Length}";
 			}
 			_wrk.EncodeResource();
 			_text.DecodeResource(_wrk.RawData, false);
@@ -52,11 +64,10 @@ namespace Idmr.LfdResourceEditor
 
 			_isLoading = true;
 			_activeIndex = lstStrings.SelectedIndex;
-			_string = _wrk.Strings[_activeIndex];
-			txtString.Text = _string.Replace("\n\0", "\r\n").Replace("\0", "\r\n");
+			txtString.Text = _activeString.FormattedValue;
 			lblOriginalLength.Text = $"Original length: {_text.Strings[_activeIndex].Length}";
-			lblNewLength.Text = $"New length: {_string.Length}";
-			lblNewLength.Visible = (_string != _text.Strings[_activeIndex]);
+			lblNewLength.Text = $"New length: {_activeString.Length}";
+			lblNewLength.Visible = !_text.Strings[_activeIndex].Value.Equals(_activeString.Value, StringComparison.Ordinal);
 			_isLoading = false;
 		}
 
@@ -64,11 +75,12 @@ namespace Idmr.LfdResourceEditor
 		{
 			if (_isLoading || _activeIndex == -1) return;
 
-			_string = txtString.Text.Replace("\r\n", "\0").Replace("\0\0", "\0\n\0");
-			lblNewLength.Text = $"New length: {_string.Length}";
+			_activeString.FormattedValue = txtString.Text;
+			lblNewLength.Text = $"New length: {_activeString.Length}";
 			lblNewLength.Visible = true;
-			_wrk.Strings[_activeIndex] = _string;
 			markDirty();
 		}
+
+		Text.TextString _activeString => _wrk.Strings[_activeIndex];
 	}
 }

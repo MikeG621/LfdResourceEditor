@@ -52,6 +52,21 @@ namespace Idmr.LfdResourceEditor
 			updateGlyph();
 		}
 
+		/// <summary>Clean up any resources being used.</summary>
+		/// <param name="disposing"><see langword="true"/> if managed resources should be disposed; otherwise, <see langword="false"/>.</param>
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
+				components?.Dispose();
+				_wrk.Dispose();
+				_charMap.Dispose();
+				_glyph.Dispose();
+			}
+			_working = null;
+			base.Dispose(disposing);
+		}
+
 		void paintGlyphs()
 		{
 			Graphics g = Graphics.FromImage(_charMap);
@@ -124,28 +139,6 @@ namespace Idmr.LfdResourceEditor
 			_font.DecodeResource(_wrk.RawData, false);
 		}
 
-		private void btnExport_Click(object sender, EventArgs e)
-		{
-			// TODO: can remove this button due to MainForm.miResourceExport
-			savFont.FileName = $"{Path.GetFileNameWithoutExtension(_lfd.FileName)}-{_font.Name}";
-			var response = savFont.ShowDialog();
-			if (response != DialogResult.OK) return;
-
-			FileStream fs = null;
-			try
-			{
-				fs = File.OpenWrite(savFont.FileName);
-				BinaryWriter bw = new BinaryWriter(fs);
-				bw.Write(_font.ToString().ToCharArray());
-				bw.Write((long)0);
-				fs.Position = Resource.LengthOffset;
-				bw.Write(_wrk.Length);
-				bw.Write(_wrk.RawData);
-				fs.SetLength(fs.Position);
-			}
-			catch (Exception x) { MessageBox.Show(x.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); }
-			finally { fs?.Close(); }
-		}
 		private void btnImport_Click(object sender, EventArgs e)
 		{
 			var response = opnFont.ShowDialog();
