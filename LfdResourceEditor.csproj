@@ -70,17 +70,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ImageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImageForm.Designer.cs">
+      <DependentUpon>ImageForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="BlasForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="BlasForm.Designer.cs">
       <DependentUpon>BlasForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DeltForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DeltForm.Designer.cs">
-      <DependentUpon>DeltForm.cs</DependentUpon>
     </Compile>
     <Compile Include="FontForm.cs">
       <SubType>Form</SubType>
@@ -94,6 +94,18 @@
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AnimForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AnimForm.Designer.cs">
+      <DependentUpon>AnimForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeltForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeltForm.Designer.cs">
+      <DependentUpon>DeltForm.cs</DependentUpon>
     </Compile>
     <Compile Include="PlttForm.cs">
       <SubType>Form</SubType>
@@ -115,17 +127,23 @@
     <Compile Include="ResourceForm.Designer.cs">
       <DependentUpon>ResourceForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ImageForm.resx">
+      <DependentUpon>ImageForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BlasForm.resx">
       <DependentUpon>BlasForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DeltForm.resx">
-      <DependentUpon>DeltForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FontForm.resx">
       <DependentUpon>FontForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AnimForm.resx">
+      <DependentUpon>AnimForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeltForm.resx">
+      <DependentUpon>DeltForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PlttForm.resx">
       <DependentUpon>PlttForm.cs</DependentUpon>

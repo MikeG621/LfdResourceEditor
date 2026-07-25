@@ -21,28 +21,20 @@ using System.Windows.Forms;
 
 namespace Idmr.LfdResourceEditor
 {
-	public partial class DeltForm : ImageForm
+	public partial class AnimForm : ImageForm
 	{
-		Delt _wrk => (Delt)_working;
-		Delt _delt => (Delt)_resource;
+		int _frame = 0;
+		Anim _wrk => (Anim)_working;
+		Anim _anim => (Anim)_resource;
+		Bitmap _image => _wrk.Frames[_frame].Image;
 
-		public DeltForm(LfdFile lfd, Delt delt, MainForm mdiParent, bool readOnly = false) : base(lfd, delt, mdiParent, readOnly)
+		public AnimForm(LfdFile lfd, Anim anim, MainForm mdiParent, bool readOnly = false) : base(lfd, anim, mdiParent, readOnly)
 		{
 			InitializeComponent();
-			btnNext.Visible = false;
-			btnPrev.Visible = false;
-			lblFrame.Visible = false;
-			chkRelative.Visible = false;
-			numFrameHeight.Visible = false;
-			numFrameWidth.Visible = false;
-			numFrameLeft.Visible = false;
-			numFrameTop.Visible = false;
-			label9.Visible = false;
-			label10.Visible = false;
-			_working = new Delt();
-			_wrk.DecodeResource(_delt.RawData, false);
+			_working = new Anim();
+			_wrk.DecodeResource(_anim.RawData, false);
 			_isLoading = true;
-			_wrk.Palette = _palette;
+			_wrk.SetPalette(_palette);
 			numLeft.Value = _wrk.Left;
 			numTop.Value = _wrk.Top;
 			numWidth.Value = _wrk.Width;
@@ -51,6 +43,7 @@ namespace Idmr.LfdResourceEditor
 			if (_wrk.Width > 160 || _wrk.Height > 120) optZoom4.Enabled = false;
 			if (_wrk.Width > 320 || _wrk.Height > 240) optZoom2.Enabled = false;
 			loadPltts();
+			loadFrame();
 			refresh();
 		}
 
@@ -72,9 +65,20 @@ namespace Idmr.LfdResourceEditor
 		protected override void updateLfd()
 		{
 			_wrk.EncodeResource();
-			_delt.DecodeResource(_wrk.RawData, false);
+			_anim.DecodeResource(_wrk.RawData, false);
 		}
 
+		void loadFrame()
+		{
+			numFrameHeight.Value = _image.Height;
+			numFrameWidth.Value = _image.Width;
+			numFrameLeft.Value = _wrk.Frames[_frame].Left;
+			numFrameTop.Value = _wrk.Frames[_frame].Top;
+			lblFrame.Text = $"Frame {_frame + 1} of {_wrk.NumberOfFrames}";
+			pctImage.Invalidate();
+		}
+
+		/// <summary>Reset palette and repaint the view.</summary>
 		protected override void refresh()
 		{
 			if (_isLoading) return;
@@ -84,7 +88,7 @@ namespace Idmr.LfdResourceEditor
 			if (cboTransparent.SelectedIndex == 0) _palette.Entries[0] = Color.Transparent;
 			else if (cboTransparent.SelectedIndex == 2) _palette.Entries[0] = Color.Fuchsia;
 			else if (cboTransparent.SelectedIndex == 3) _palette.Entries[0] = Color.Blue;
-			_wrk.Palette = _palette;
+			_wrk.SetPalette(_palette);
 			pctImage.Invalidate();
 		}
 
@@ -94,7 +98,7 @@ namespace Idmr.LfdResourceEditor
 			var response = savImage.ShowDialog();
 			if (response != DialogResult.OK) return;
 
-			_wrk.Image.Save(savImage.FileName, ImageFormat.Bmp);
+			_image.Save(savImage.FileName, ImageFormat.Bmp);
 			// Reminder: the exported palette may not match exactly
 		}
 		private void btnImport_Click(object sender, EventArgs e)
@@ -104,12 +108,26 @@ namespace Idmr.LfdResourceEditor
 
 			try
 			{
-				_wrk.Image = new Bitmap(opnImage.FileName) { Palette = _palette };
-				numWidth.Value = _wrk.Image.Width;
-				numHeight.Value = _wrk.Image.Height;
-				pctImage.Invalidate();
+				_wrk.Frames[_frame].Image = new Bitmap(opnImage.FileName) { Palette = _palette };
+				numWidth.Value = _wrk.Width;
+				numHeight.Value = _wrk.Height;
+				loadFrame();
 			}
 			catch (Exception x) { MessageBox.Show("Import Error", x.Message, MessageBoxButtons.OK, MessageBoxIcon.Error); }
+		}
+		private void btnNext_Click(object sender, EventArgs e)
+		{
+			if (_frame == _wrk.NumberOfFrames - 1) return;
+
+			_frame++;
+			loadFrame();
+		}
+		private void btnPrev_Click(object sender, EventArgs e)
+		{
+			if (_frame == 0) return;
+
+			_frame--;
+			loadFrame();
 		}
 
 		private void pctImage_Paint(object sender, PaintEventArgs e)
@@ -122,7 +140,7 @@ namespace Idmr.LfdResourceEditor
 			else if (optZoom4.Checked) scale = 4;
 			int left = (pctImage.Width - _wrk.Width * scale) / 2;
 			int top = (pctImage.Height - _wrk.Height * scale) / 2;
-			g.DrawImage(_wrk.Image, left, top, _wrk.Width * scale, _wrk.Height * scale);
+			g.DrawImage(_image, left, top, _wrk.Width * scale, _wrk.Height * scale);
 		}
 	}
 }

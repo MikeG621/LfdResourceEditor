@@ -145,7 +145,8 @@ namespace Idmr.LfdResourceEditor
 			switch (res.Type)
 			{
 				case Resource.ResourceType.Anim:
-					// TODO: ANIM
+					resFrm = new AnimForm(_lfd, (Anim)res, this);
+					resFrm.Show();
 					break;
 				case Resource.ResourceType.Blas:
 				case Resource.ResourceType.Voic:
@@ -167,6 +168,9 @@ namespace Idmr.LfdResourceEditor
 				case Resource.ResourceType.Text:
 					resFrm = new TextForm(_lfd, (Text)res) { MdiParent = this };
 					resFrm.Show();
+					break;
+				case Resource.ResourceType.Cust:
+					MessageBox.Show($"Resource type {res.Type.ToString().ToUpper()} is used by the application, no editable data.");
 					break;
 			}
 		}

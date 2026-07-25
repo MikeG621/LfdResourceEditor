@@ -1,6 +1,6 @@
 ﻿namespace Idmr.LfdResourceEditor
 {
-	partial class DeltForm
+	partial class AnimForm
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -38,11 +38,19 @@
 			// 
 			this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
 			// 
-			// NewDelt
+			// btnNext
+			// 
+			this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
+			// 
+			// btnPrev
+			// 
+			this.btnPrev.Click += new System.EventHandler(this.btnPrev_Click);
+			// 
+			// NewAnim
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.ClientSize = new System.Drawing.Size(802, 529);
-			this.Name = "NewDelt";
+			this.Name = "NewAnim";
 			((System.ComponentModel.ISupportInitialize)(this.pctImage)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numLeft)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numTop)).EndInit();

@@ -31,6 +31,7 @@ Currently, there are no other settings/config files.
 ## Latest Release
 
 #### WIP
+- ANIM and DELT support added.
 - FONT support added.
 - PLTT support added.
 - BLAS/VOIC support added.
