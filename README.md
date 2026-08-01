@@ -30,7 +30,7 @@ Currently, there are no other settings/config files.
 
 ## Latest Release
 
-#### WIP
+#### v0.2, 01 Aug 2026
 - ANIM and DELT support added.
 - FONT support added.
 - PLTT support added.

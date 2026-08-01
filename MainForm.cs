@@ -4,10 +4,11 @@
  * Licensed under the MPL v2.0 or later.
  * 
  * Full notice in Program.cs
- * Version: 0.1+
+ * Version: 0.2
  */
 
 /* CHANGELOG
+ * v0.2, 260801
  * [NEW] resource export
  * v0.1, 260517
  * - created
@@ -150,7 +151,7 @@ namespace Idmr.LfdResourceEditor
 					break;
 				case Resource.ResourceType.Blas:
 				case Resource.ResourceType.Voic:
-					resFrm = new BlasForm(_lfd, (Blas)res) { MdiParent = this };
+					resFrm = new BlasForm(_lfd, (Blas)res, this);
 					resFrm.Show();
 					break;
 				case Resource.ResourceType.Delt:
@@ -158,15 +159,15 @@ namespace Idmr.LfdResourceEditor
 					resFrm.Show();
 					break;
 				case Resource.ResourceType.Font:
-					resFrm = new FontForm(_lfd, (LfdReader.Font)res) { MdiParent = this };
+					resFrm = new FontForm(_lfd, (LfdReader.Font)res, this);
 					resFrm.Show();
 					break;
 				case Resource.ResourceType.Pltt:
-					resFrm = new PlttForm(_lfd, (Pltt)res) { MdiParent = this };
+					resFrm = new PlttForm(_lfd, (Pltt)res, this);
 					resFrm.Show();
 					break;
 				case Resource.ResourceType.Text:
-					resFrm = new TextForm(_lfd, (Text)res) { MdiParent = this };
+					resFrm = new TextForm(_lfd, (Text)res, this);
 					resFrm.Show();
 					break;
 				case Resource.ResourceType.Cust:

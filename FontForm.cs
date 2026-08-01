@@ -4,11 +4,11 @@
  * Licensed under the MPL v2.0 or later.
  * 
  * Full notice in Program.cs
- * Version: 0.1+
+ * Version: 0.2
  */
 
 /* CHANGELOG
- * v0.2, xxxxxx
+ * v0.2, 260801
  * - created
  */
 
@@ -16,7 +16,6 @@ using Idmr.Common;
 using Idmr.LfdReader;
 using System;
 using System.Drawing;
-using System.IO;
 using System.Windows.Forms;
 
 namespace Idmr.LfdResourceEditor
@@ -30,11 +29,12 @@ namespace Idmr.LfdResourceEditor
 		LfdReader.Font _wrk => (LfdReader.Font)_working;
 		LfdReader.Font _font => (LfdReader.Font)_resource;
 
-		public FontForm(LfdFile lfd, LfdReader.Font font, bool readOnly = false) : base(lfd, font, readOnly)
+		public FontForm(LfdFile lfd, LfdReader.Font font, MainForm mdiParent, bool readOnly = false) : base(lfd, font, readOnly)
 		{
 			InitializeComponent();
 			_working = new LfdReader.Font(1, 1);	// dummy ctor, 1 char, 1px
 			_wrk.DecodeResource(_font.RawData, false);
+			MdiParent = mdiParent;
 			_charMap = new Bitmap(pnlCharMap.Width, pnlCharMap.Height);
 			_glyph = new Bitmap(pctGlyph.Width, pctGlyph.Height);
 			_isLoading = true;

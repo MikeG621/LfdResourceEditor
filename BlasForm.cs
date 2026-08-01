@@ -4,11 +4,11 @@
  * Licensed under the MPL v2.0 or later.
  * 
  * Full notice in Program.cs
- * Version: 0.1+
+ * Version: 0.2
  */
 
 /* CHANGELOG
- * v0.2, XXXXXX
+ * v0.2, 260801
  * - created
  */
 
@@ -25,11 +25,12 @@ namespace Idmr.LfdResourceEditor
 		Blas _wrk => (Blas)_working;
 		Blas _blas => (Blas)_resource;
 
-		public BlasForm(LfdFile lfd, Blas blas, bool readOnly = false) : base(lfd, blas, readOnly)
+		public BlasForm(LfdFile lfd, Blas blas, MainForm mdiParent, bool readOnly = false) : base(lfd, blas, readOnly)
 		{
 			InitializeComponent();
 			_working = new Blas();
 			_wrk.DecodeResource(_blas.RawData, false);
+			MdiParent = mdiParent;
 			updateLabels();
 			btnImport.Enabled = !readOnly;
 		}

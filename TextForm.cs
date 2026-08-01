@@ -4,10 +4,11 @@
  * Licensed under the MPL v2.0 or later.
  * 
  * Full notice in Program.cs
- * Version: 0.1+
+ * Version: 0.2
  */
 
 /* CHANGELOG
+ * v0.2, 260801
  * [UPD] Refactored to ResourceForm
  * [UPD] Added working copy, Update now for pushing to LFD
  * v0.1, 260517
@@ -25,11 +26,12 @@ namespace Idmr.LfdResourceEditor
 		Text _wrk => (Text)_working;
 		Text _text => (Text)_resource;
 
-		public TextForm(LfdFile lfd, Text text, bool readOnly = false) : base(lfd, text, readOnly)
+		public TextForm(LfdFile lfd, Text text, MainForm mdiParent, bool readOnly = false) : base(lfd, text, readOnly)
 		{
 			InitializeComponent();
 			_working = new Text();
 			_wrk.DecodeResource(_text.RawData, false);
+			MdiParent = mdiParent;
 			txtString.ReadOnly = _isReadOnly;
 			foreach (var s in _wrk.Strings) lstStrings.Items.Add(s.Value.Length > 12 ? s.Value.Substring(0, 12) + "..." : s.Value);
 		}

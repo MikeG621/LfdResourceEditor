@@ -4,11 +4,11 @@
  * Licensed under the MPL v2.0 or later.
  * 
  * Full notice in Program.cs
- * Version: 0.1+
+ * Version: 0.2
  */
 
 /* CHANGELOG
- * v0.2, XXXXXX
+ * v0.2, 260801
  * - created
  */
 
@@ -27,11 +27,12 @@ namespace Idmr.LfdResourceEditor
 		Pltt _pltt => (Pltt)_resource;
 		int _currentRotator => (int)numRotatorIndex.Value;
 
-		public PlttForm(LfdFile lfd, Pltt pltt, bool readOnly = false) : base(lfd, pltt, readOnly)
+		public PlttForm(LfdFile lfd, Pltt pltt, MainForm mdiParent, bool readOnly = false) : base(lfd, pltt, readOnly)
 		{
 			InitializeComponent();
 			_working = new Pltt();
 			_wrk.DecodeResource(_pltt.RawData, false);
+			MdiParent = mdiParent;
 			#region create swatches
 			pnlColors[0] = pnlClr0;
 			pnlColors[0].Size = new Size(16, 16);

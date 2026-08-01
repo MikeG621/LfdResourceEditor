@@ -4,11 +4,11 @@
  * Licensed under the MPL v2.0 or later.
  * 
  * Full notice in Program.cs
- * Version: 0.1+
+ * Version: 0.2
  */
 
 /* CHANGELOG
- * v0.2, xxxxxx
+ * v0.2, 260801
  * - created
  */
 
@@ -153,6 +153,8 @@ namespace Idmr.LfdResourceEditor
 		private void btnUp_Click(object sender, EventArgs e) { if (lstApplied.SelectedIndex > 0) shiftApplied(-1); }
 
 		private void cboTransparent_SelectedIndexChanged(object sender, EventArgs e) => refresh();
+
+		// TODO: chkEdit
 
 		private void lstApplied_DoubleClick(object sender, EventArgs e) => btnRemove_Click(sender, e);
 		private void lstPltts_DoubleClick(object sender, EventArgs e) => btnAdd_Click(sender, e);
